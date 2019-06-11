@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Orders = db.define('orders', {
+const Order = db.define('order', {
   progress: {
     type: Sequelize.ENUM('Created', 'Processing', 'Cancelled', 'Completed'),
     defaultValue: 'Created'
@@ -11,4 +11,4 @@ const Orders = db.define('orders', {
   }
 })
 
-module.exports = Orders
+module.exports = Order
