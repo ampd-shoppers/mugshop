@@ -13,7 +13,10 @@ const Mug = db.define('mug', {
   },
   stock: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      min: 0
+    }
   },
   imgSRC: {
     type: Sequelize.STRING
