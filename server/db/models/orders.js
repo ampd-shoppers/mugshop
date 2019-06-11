@@ -6,7 +6,7 @@ const Orders = db.define('orders', {
     type: Sequelize.ENUM('Created', 'Processing', 'Cancelled', 'Completed'),
     defaultValue: 'Created'
   },
-  orderTotal: {
+  dollarTotal: {
     type: Sequelize.DECIMAL(10, 2)
   }
 })
