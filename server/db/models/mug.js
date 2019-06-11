@@ -20,6 +20,7 @@ const Mug = db.define('mug', {
   },
   imgSRC: {
     type: Sequelize.STRING
+    //TODO: ADD DEFAULT IMAGE
   }
 })
 
