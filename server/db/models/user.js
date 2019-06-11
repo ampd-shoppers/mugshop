@@ -16,9 +16,9 @@ const User = db.define('user', {
     unique: true,
     allowNull: false
   },
-  adminStatus: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
+  permissionLevel: {
+    type: Sequelize.ENUM('Guest', 'User', 'Admin'),
+    defaultValue: 'Guest'
   },
   shippingAddress: {
     type: Sequelize.STRING
