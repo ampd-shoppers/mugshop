@@ -6,9 +6,12 @@ const Review = db.define('review', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  author: {
-    type: Sequelize.STRING,
-    allowNull: false
+  stars: {
+    type: Sequelize.INTEGER,
+    validate: {
+      max: 5,
+      min: 1
+    }
   },
   body: {
     type: Sequelize.TEXT,
