@@ -68,6 +68,7 @@ const createApp = () => {
   app.use('/api', require('./api'))
 
   // static file-serving middleware
+  app.use('*/imgs', express.static('public/imgs'))
   app.use(express.static(path.join(__dirname, '..', 'public')))
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
@@ -105,6 +106,7 @@ const startListening = () => {
   require('./socket')(io)
 }
 
+//Change to false if want to not want it to reset
 const syncDb = () => db.sync({force: true})
 
 async function bootApp() {

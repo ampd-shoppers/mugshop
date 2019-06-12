@@ -9,19 +9,33 @@ async function seed() {
   console.log('db synced!')
   //Users
   let i
+  // for (i = 0; i < 1000; i++) {
+  //   let dummyUser = await User.create({
+  //     firstName: Faker.name.firstName(),
+  //     lastName: Faker.name.lastName(),
+  //     get email() {
+  //       return Faker.internet.email(this.firstName, this.lastName)
+  //     },
+  //     password: '1234',
+  //     permissionLevel: 'User'
+  //   })
+  // }
   for (i = 0; i < 1000; i++) {
-    let dummyUser = await User.create({
-      firstName: Faker.name.firstName(),
-      lastName: Faker.name.lastName(),
-      get email() {
-        return Faker.internet.email(this.firstName, this.lastName)
+    let dummyUser = await User.findOrCreate({
+      where: {
+        firstName: Faker.name.firstName(),
+        lastName: Faker.name.lastName(),
+        get email() {
+          return Faker.internet.email(this.firstName, this.lastName)
+        }
       },
-      password: '1234',
-      permissionLevel: 'User'
+      defaults: {
+        password: '1234',
+        permissionLevel: 'User'
+      }
     })
   }
-  console.log(`seeded ${i} users`)
-  console.log(`seeded successfully`)
+  console.log(`seeded users`)
 
   //Mugs
   for (i = 0; i < 3000; i++) {
