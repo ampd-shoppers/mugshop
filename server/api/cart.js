@@ -1,13 +1,14 @@
 const router = require('express').Router()
-const {CartItem, User} = require('../db/models')
+const {CartItem, User, Mug} = require('../db/models')
 module.exports = router
 
 //TODO check these routes before implementing fully
 
-router.get('/:userId/cart', async (req, res, next) => {
+router.get('/user', async (req, res, next) => {
   try {
     const userCart = await CartItem.findAll({
-      where: {userId: req.params.userId}
+      where: {userId: req.user.dataValues.id}
+      //TODO: eagerloading mug
     })
     if (userCart) {
       res.json(userCart)
