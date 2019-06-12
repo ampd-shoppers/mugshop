@@ -2,17 +2,29 @@
 
 const db = require('../server/db')
 const {User} = require('../server/db/models')
+const Faker = require('faker')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  // const users = await Promise.all([
+  //   User.create({email: 'cody@email.com', password: '123'}),
+  //   User.create({email: 'murphy@email.com', password: '123'})
+  // ])
+  let i
+  for (i = 0; i < 1000; i++) {
+    let dummyUser = await User.create({
+      firstName: Faker.name.firstName(),
+      lastName: Faker.name.lastName(),
+      get email() {
+        return Faker.internet.email(this.firstName, this.lastName)
+      },
+      permissionLevel: 'User'
+    })
+  }
 
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${i} users`)
   console.log(`seeded successfully`)
 }
 
