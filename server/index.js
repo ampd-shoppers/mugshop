@@ -107,7 +107,7 @@ const startListening = () => {
 }
 
 //Change to false if want to not want it to reset
-const syncDb = () => db.sync({force: true})
+const syncDb = () => db.sync({force: false})
 
 async function bootApp() {
   await sessionStore.sync()
