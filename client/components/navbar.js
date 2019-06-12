@@ -10,10 +10,25 @@ import {LinkContainer} from 'react-router-bootstrap'
 import Routes from '../routes'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <BSNavbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
-    <BSNavbar.Brand>MugShop</BSNavbar.Brand>
+  <BSNavbar
+    fill="true"
+    collapseOnSelect
+    expand="lg"
+    bg="light"
+    sticky="top"
+    className="justify-content-center"
+  >
+    <LinkContainer to="/home">
+      <BSNavbar.Brand>MugShop</BSNavbar.Brand>
+    </LinkContainer>
     <LinkContainer to="/mugs">
-      <NavItem>Mugs</NavItem>
+      <Nav> Mugs </Nav>
+    </LinkContainer>
+    <LinkContainer to="/signup">
+      <Nav> Sign Up </Nav>
+    </LinkContainer>
+    <LinkContainer to="/login">
+      <Nav> Login </Nav>
     </LinkContainer>
   </BSNavbar>
 )
