@@ -1,28 +1,28 @@
 const router = require('express').Router()
-const {User, Review, Order, OrderItem, CartItem} = require('../db/models')
+const {Mug, Tag, Review} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await User.findAll({
+    const mugs = await Mug.findAll({
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email']
+      attributes: ['name', 'currentPrice', 'imgSRC']
     })
-    res.json(users)
+    res.json(mugs)
   } catch (err) {
     next(err)
   }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:mugId', async (req, res, next) => {
   try {
-    const userId = await User.findByPk(req.params.userId)
-    if (userId) {
-      res.json(userId)
+    const mugId = await Mug.findByPk(req.params.mugId)
+    if (mugId) {
+      res.json(mugId)
     } else {
-      res.send('user not found')
+      res.send('mug not found')
     }
   } catch (err) {
     next(err)
