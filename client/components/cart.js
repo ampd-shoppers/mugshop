@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Image from 'react-bootstrap/Image'
 
+import DropdownButton from 'react-bootstrap/DropdownButton'
+
 const cartThings = [
   {
     id: 1,
@@ -38,7 +40,13 @@ export class Cart extends Component {
         <ListGroup variant="flush">
           {cartThings.map(item => (
             <ListGroup.Item>
-              <Image src={item.imgSRC} rounded /> {item.name} {item.quantity}
+              <Image
+                src={item.imgSRC}
+                rounded
+                fluid
+                style={{height: '100px'}}
+              />{' '}
+              {item.name} {item.quantity}
             </ListGroup.Item>
           ))}
         </ListGroup>
