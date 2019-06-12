@@ -60,7 +60,7 @@ export class AllMugs extends Component {
   render() {
     return (
       <div>
-        <CardGroup>
+        <CardGroup style={{justifyContent: 'center', backgroundColor: 'teal'}}>
           {/* TODO: relink to correct mugs list not dummy data */}
           {this.state.mugs.map(mug => <AllMugsCard key={mug.id} mug={mug} />)}
         </CardGroup>
