@@ -38,7 +38,7 @@ export class Cart extends Component {
         <ListGroup variant="flush">
           {cartThings.map(item => (
             <ListGroup.Item>
-              <Image src={item.imgSRC} /> {item.name} {item.quantity}
+              <Image src={item.imgSRC} rounded /> {item.name} {item.quantity}
             </ListGroup.Item>
           ))}
         </ListGroup>
