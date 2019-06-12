@@ -1,17 +1,13 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Mug} = require('../server/db/models')
 const Faker = require('faker')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
-
-  // const users = await Promise.all([
-  //   User.create({email: 'cody@email.com', password: '123'}),
-  //   User.create({email: 'murphy@email.com', password: '123'})
-  // ])
+  //Users
   let i
   for (i = 0; i < 1000; i++) {
     let dummyUser = await User.create({
@@ -20,11 +16,28 @@ async function seed() {
       get email() {
         return Faker.internet.email(this.firstName, this.lastName)
       },
+      password: '1234',
       permissionLevel: 'User'
     })
   }
-
   console.log(`seeded ${i} users`)
+  console.log(`seeded successfully`)
+
+  //Mugs
+  for (i = 0; i < 3000; i++) {
+    let dummyMug = await Mug.findOrCreate({
+      where: {
+        name: `${Faker.commerce.productAdjective()} ${Faker.commerce.productAdjective()} ${Faker.commerce.color()} Mug`
+      },
+      defaults: {
+        // name: `${Faker.commerce.productAdjective()} ${Faker.hacker.adjective()} Mug`,
+        currentPrice: Faker.finance.amount(0, 20, 2),
+        stock: Faker.random.number(1000),
+        imgSRC: '/public/imgs/default-mug.jpg'
+      }
+    })
+  }
+  console.log(`seeded mugs`)
   console.log(`seeded successfully`)
 }
 
