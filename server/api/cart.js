@@ -21,8 +21,29 @@ router.get('/:userId/cart', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const items = await CartItem.create(req.body)
-    res.json(items)
+    console.log(
+      'Hi from postCart API, ',
+      req.body.mugId,
+      ' UserId: ',
+      req.user.dataValues.id
+    )
+    // const items = await CartItem.create(req.body)
+    // res.json(items)
+
+    const addedItem = await CartItem.findOrCreate({
+      where: {
+        mugId: req.body.mugId,
+
+        //TODO: NOT LOGGED IN NULL CASE
+        userId: req.user.dataValues.id
+      },
+
+      defaults: {
+        quantity: 1
+      }
+    })
+
+    res.json(addedItem)
   } catch (err) {
     next(err)
   }
