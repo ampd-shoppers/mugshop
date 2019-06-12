@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import AllMugsCard from './all-mugs-card'
 import CardGroup from 'react-bootstrap/CardGroup'
-// import classNames from '../../public';
+// import classNames from '../../public/style.css';
 
 const mugs = [
   {
@@ -16,14 +16,14 @@ const mugs = [
     name: 'Cat',
     currentPrice: '2.99',
     imgSRC:
-      'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjc0ODYxfQ'
+      'https://images.unsplash.com/photo-1539547256500-3c6cfd15bfdb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjc0ODYxfQ'
   },
   {
     id: 3,
     name: 'Dog',
     currentPrice: '2.99',
     imgSRC:
-      'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjc0ODYxfQ'
+      'https://images.unsplash.com/photo-1484981138541-3d074aa97716?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjc0ODYxfQ'
   },
   {
     id: 4,
