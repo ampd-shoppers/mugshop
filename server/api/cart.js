@@ -60,9 +60,10 @@ router.put('/:userId', async (req, res, next) => {
   }
 })
 
-router.delete('/:userId', async (req, res, next) => {
+router.delete('/user/:id', async (req, res, next) => {
   try {
-    const mugId = await Mug.findByPk(req.body.mugId)
+    console.log('route delete ', req.params.id)
+    const mugId = req.params.id
     if (mugId) {
       CartItem.destroy({where: {mugId}})
     } else {
