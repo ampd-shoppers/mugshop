@@ -102,8 +102,8 @@ const startListening = () => {
   )
 
   // set up our socket control center
-  const io = socketio(server)
-  require('./socket')(io)
+  // const io = socketio(server)
+  // require('./socket')(io)
 }
 
 //Change to false if want to not want it to reset

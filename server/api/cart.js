@@ -4,11 +4,20 @@ module.exports = router
 
 //TODO check these routes before implementing fully
 
+router.use((req, res, next) => {
+  console.log(req.session)
+  req.session.cartItems = [{productId: 1, quantity: 3}]
+  // console.log(req.user)
+  next()
+})
+
 router.get('/user', async (req, res, next) => {
+  console.log(req.session.cartItems)
   try {
     // console.log(req)
+    // console.log(req.user.id)
     const userCart = await CartItem.findAll({
-      where: {userId: req.user.dataValues.id},
+      where: {userId: req.user.id},
       include: [
         {
           model: Mug

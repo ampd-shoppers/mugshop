@@ -16,6 +16,24 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+const isAdmin = (req, res, next) => {
+  if (!req.user) {
+    next(new Error('You are not logged in'))
+  }
+  // console.log(req.user)
+  if (req.user.permissionLevel !== 'Admin') {
+    next(new Error('You are not an admin'))
+  }
+  next()
+}
+
+router.get('/1admin', isAdmin, async (req, res, next) => {
+  const user1 = await User.findByPk(1)
+  user1.permissionLevel = 'Admin'
+  await user1.save()
+  res.json(user1)
+})
+
 router.get('/:userId', async (req, res, next) => {
   try {
     const userId = await User.findByPk(req.params.userId)
