@@ -5,6 +5,9 @@ import Button from 'react-bootstrap/Button'
 
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Axios from 'axios'
+import CartCard from './cart-card'
+
+import classNames from '../../public/style.css'
 
 // const cartThings = [
 //   {
@@ -67,22 +70,34 @@ export class Cart extends Component {
       <div>
         <h1>Shopping Cart</h1>
         <ListGroup variant="flush">
-          {this.state.cart.map(item => (
-            <ListGroup.Item key={item.mugId}>
-              {/*<Image*/}
-              {/*  src={item.imgSRC}*/}
-              {/*  rounded*/}
-              {/*  fluid*/}
-              {/*  style={{height: '100px'}}*/}
-              {/*/>{' '}*/}
-              {/*{item.name} {item.quantity}*/}
-              {item.mugId}
-              {/* <button type="button" onClick={() => this.props.deleteItem(id)}>Delete</button> */}
-              <Button
-                variant="primary"
-                onClick={() => this.deleteItems(item.mugId)}
-              >
-                Delete
+          {this.state.cart.map(mug => <CartCard key={mug.mugId} mug={mug} />)}
+        </ListGroup>
+        <br />
+        <h2 style={{backgroundColor: 'gray'}}>DummyData</h2>
+        <ListGroup variant="flush" className={classNames.cartListGroup}>
+          {cartThings.map(item => (
+            <ListGroup.Item
+              className={classNames.cartListGroupItem}
+              key={item.mugId}
+            >
+              <Image
+                src={item.imgSRC}
+                rounded
+                fluid
+                // style={{height: '100px'}}
+                className={classNames.cartImg}
+              />
+              <div key={item.mugId} className={classNames.cartText}>
+                <h4>{item.name}</h4>
+                <p>Quantity: {item.quantity}</p>
+                <p>{item.mugId}</p>
+              </div>
+              <div key={item.mugId} className={classNames.cartText}>
+                <h4>${item.currentPrice}</h4>
+              </div>
+              <Button className={classNames.cartButton}>
+                {' '}
+                X Remove from Cart
               </Button>
             </ListGroup.Item>
           ))}
