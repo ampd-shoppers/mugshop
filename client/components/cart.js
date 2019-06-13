@@ -61,39 +61,6 @@ export class Cart extends Component {
             <CartCard key={item.mugId} item={item} />
           ))}
         </ListGroup>
-        <br />
-        <h2 style={{backgroundColor: 'gray'}}>DummyData</h2>
-        {/* <ListGroup variant="flush" className={classNames.cartListGroup}>
-          {cartThings.map(item => (
-            <div key={item.mugId}>
-              <ListGroup.Item
-                className={classNames.cartListGroupItem}
-                key={item.mugId}
-              >
-                <Image
-                  src={item.imgSRC}
-                  rounded
-                  fluid
-                  // style={{height: '100px'}}
-                  className={classNames.cartImg}
-                  key={item.mugId}
-                />
-                <div key={item.mugId} className={classNames.cartText}>
-                  <h4 key={item.mugId}>{item.name}</h4>
-                  <p key={item.mugId}>Quantity: {item.quantity}</p>
-                  <p key={item.mugId}>{item.mugId}</p>
-                </div>
-                <div key={item.mugId} className={classNames.cartText}>
-                  <h4 key={item.mugId}>${item.currentPrice}</h4>
-                </div>
-                <Button key={item.mugId} variant="info" className={classNames.cartButton}>
-                  {' '}
-                  X Remove from Cart
-                </Button>
-              </ListGroup.Item>
-            </div>
-          ))}
-        </ListGroup> */}
       </div>
     )
   }

@@ -28,7 +28,7 @@ async function seed() {
   console.log(`seeded users`)
 
   //Mugs
-  for (i = 0; i < 3000; i++) {
+  for (i = 0; i < 1100; i++) {
     let dummyMug = await Mug.findOrCreate({
       where: {
         name: `${Faker.commerce.productAdjective()} ${Faker.commerce.productAdjective()} ${Faker.commerce.color()} Mug`

@@ -16,21 +16,12 @@ export class CartCard extends Component {
     try {
       console.log('id: ', id)
       await Axios.delete(`/api/cart/user/${id}`)
-      // const response = await Axios.get('/api/cart/user')
-      // this.setState({cartItem: response.data})
     } catch (error) {
       console.log(error)
     }
   }
   render() {
     return (
-      // <ListGroup.Item>
-      //   {this.props.mug.mugId}{' '}
-      //   <Button onClick={() => this.deleteItem(this.props.mug.mugId)}>
-      //     Delete
-      //   </Button>
-      // </ListGroup.Item>
-
       <ListGroup.Item className={classNames.cartListGroupItem}>
         <Image
           src={this.props.item.mug.imgSRC}
@@ -40,7 +31,7 @@ export class CartCard extends Component {
         />
         <div className={classNames.cartText}>
           <h4>{this.props.item.mug.name}</h4>
-          <p>Quantity: {this.props.item.mug.quantity}</p>
+          <p>Quantity: {this.props.item.quantity}</p>
         </div>
         <div className={classNames.cartText}>
           <h4>${this.props.item.mug.currentPrice}</h4>
