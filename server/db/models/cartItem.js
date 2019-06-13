@@ -3,7 +3,8 @@ const db = require('../db')
 
 const CartItem = db.define('cart_item', {
   quantity: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 1
   }
 })
 

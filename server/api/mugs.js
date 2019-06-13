@@ -4,9 +4,6 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    console.log('hi')
-    console.log(req.sessionID)
-    console.log(req.user)
     const mugs = await Mug.findAll({
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just

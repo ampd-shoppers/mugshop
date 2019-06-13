@@ -28,7 +28,8 @@ async function seed() {
   console.log(`seeded users`)
 
   //Mugs
-  for (i = 0; i < 3000; i++) {
+
+  for (i = 0; i < 1100; i++) {
     let dummyMug = await Mug.findOrCreate({
       where: {
         name: `${Faker.commerce.productAdjective()} ${Faker.commerce.productAdjective()} ${Faker.commerce.color()} Mug`
@@ -37,7 +38,8 @@ async function seed() {
         // name: `${Faker.commerce.productAdjective()} ${Faker.hacker.adjective()} Mug`,
         currentPrice: Faker.finance.amount(0, 20, 2),
         stock: Faker.random.number(1000),
-        imgSRC: '/public/imgs/default-mug.jpg'
+        // imgSRC: '/public/imgs/default-mug.jpg',
+        imgSRC: `/public/imgs/mugs/mug${i % 21}-min.jpeg`
       }
     })
   }
