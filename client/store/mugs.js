@@ -19,9 +19,10 @@ const setAllMugs = mugs => ({type: SET_ALL_MUGS, mugs})
 /**
  * THUNK CREATORS
  */
-export const getAllMugs = () => async dispatch => {
+export const getAllMugs = (page = 1) => async dispatch => {
+  //sets default value of page to 1
   try {
-    const response = await Axios.get('/api/mugs')
+    const response = await Axios.get(`/api/mugs/page/${page}`)
     const mugs = response.data
     dispatch(setAllMugs(mugs))
   } catch (err) {
