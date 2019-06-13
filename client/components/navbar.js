@@ -12,7 +12,7 @@ import classNames from '../../public/style.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>MugShop☕</h1>
+    <h1 className={classNames.navBarH1}>MugShop☕</h1>
     <BSNavbar
       fill="true"
       collapseOnSelect
