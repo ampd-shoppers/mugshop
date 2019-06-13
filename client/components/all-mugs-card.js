@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Button, Card, InputGroup, FormControl} from 'react-bootstrap'
 import Axios from 'axios'
+import classNames from '../../public/style.css'
 
 export class AllMugsCard extends Component {
   constructor() {
@@ -21,7 +22,9 @@ export class AllMugsCard extends Component {
         <Card bg="light" style={{width: '18rem', margin: '.25rem'}}>
           <Card.Img variant="top" src={this.props.mug.imgSRC} />
           <Card.Body>
-            <Card.Title>{this.props.mug.name}</Card.Title>
+            <Card.Title className={classNames.cardTitleMugs}>
+              {this.props.mug.name}
+            </Card.Title>
             <Card.Subtitle>${this.props.mug.currentPrice}</Card.Subtitle>
             <Card.Text>We can add some text about the mug?</Card.Text>
             <InputGroup className="mb-1">

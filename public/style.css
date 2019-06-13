@@ -19,3 +19,63 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.cardGroupMugs {
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(37, 172, 172);
+  padding: 2rem;
+}
+
+.navBarH1 {
+  font-family: 'Fjalla One', sans-serif;
+  padding: 1rem 1rem 0.25rem 1rem;
+  margin: 0;
+  background-color: #a5a3a3;
+}
+
+.cardTitleMugs {
+  font-size: 1.15rem;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.NavBarStyle {
+  justify-content: space-between;
+  padding: 0;
+}
+.LinkNavBarDiv {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cartListGroupItem {
+  display: flex;
+}
+
+.cartListGroup {
+  padding: 2rem;
+}
+
+:global(.active) {
+  font-weight: bold;
+  color: gray;
+}
+
+.cartImg {
+  height: 7rem;
+}
+
+.cartText {
+  padding: 1rem 0 0 2rem;
+}
+
+.cartText h4 {
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.cartButton {
+  height: 2rem;
+  margin: 0 0 0 2rem;
+  padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+  align-self: center;
+}

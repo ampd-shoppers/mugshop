@@ -8,29 +8,43 @@ import BSNavbar from 'react-bootstrap/Navbar'
 import {withRouter, Switch} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
 import Routes from '../routes'
+import classNames from '../../public/style.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <BSNavbar
-    fill="true"
-    collapseOnSelect
-    expand="lg"
-    bg="light"
-    sticky="top"
-    className="justify-content-center"
-  >
-    <LinkContainer to="/home">
-      <BSNavbar.Brand>MugShop</BSNavbar.Brand>
-    </LinkContainer>
-    <LinkContainer to="/mugs">
-      <Nav> Mugs </Nav>
-    </LinkContainer>
-    <LinkContainer to="/signup">
-      <Nav> Sign Up </Nav>
-    </LinkContainer>
-    <LinkContainer to="/login">
-      <Nav> Login </Nav>
-    </LinkContainer>
-  </BSNavbar>
+  <div>
+    <h1 className={classNames.navBarH1}>MugShop☕</h1>
+    <BSNavbar
+      fill="true"
+      collapseOnSelect
+      expand="lg"
+      bg="light"
+      variant="light"
+      sticky="top"
+      className={classNames.NavBarStyle}
+    >
+      <div>
+        <LinkContainer to="/home">
+          <BSNavbar.Brand>Home</BSNavbar.Brand>
+        </LinkContainer>
+      </div>
+      <div className={classNames.LinkNavBarDiv}>
+        <Nav className="mr-auto">
+          <LinkContainer to="/mugs">
+            <Nav.Link>Mugs</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/cart">
+            <Nav.Link>Cart</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/signup">
+            <Nav.Link> Sign Up </Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/login">
+            <Nav.Link> Login </Nav.Link>
+          </LinkContainer>
+        </Nav>
+      </div>
+    </BSNavbar>
+  </div>
 )
 
 //  <LinkContainer to="/api/mugs">
