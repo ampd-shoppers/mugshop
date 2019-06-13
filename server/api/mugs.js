@@ -22,6 +22,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:mugId', async (req, res, next) => {
   try {
     const mugId = await Mug.findByPk(req.params.mugId)
+    console.log(Object.getPrototypeOf(mugId))
     if (mugId) {
       res.json(mugId)
     } else {
