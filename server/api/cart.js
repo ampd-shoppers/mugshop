@@ -62,9 +62,14 @@ router.put('/:userId', async (req, res, next) => {
 
 router.delete('/:userId', async (req, res, next) => {
   try {
-    const userId = req.params.userId
-    await CartItem.destroy({where: {userId}})
-    res.status(204).end()
+    const mugId = await Mug.findByPk(req.body.mugId)
+    if (mugId) {
+      CartItem.destroy({where: {mugId}})
+    } else {
+      res.send('cannot delete mug')
+    }
+    // await CartItem.destroy({where: {mugId}})
+    // res.status(204).end()
   } catch (err) {
     next(err)
   }

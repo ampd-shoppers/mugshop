@@ -16,6 +16,7 @@ export class AllMugsCard extends Component {
     })
     // console.log(id)
   }
+
   render() {
     return (
       <div>

@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Image from 'react-bootstrap/Image'
+import Button from 'react-bootstrap/Button'
 
 import DropdownButton from 'react-bootstrap/DropdownButton'
-import {Button} from 'react-bootstrap'
 import Axios from 'axios'
 import CartCard from './cart-card'
 
@@ -52,6 +52,7 @@ export class Cart extends Component {
   }
 
   render() {
+    console.log('this cart for gerry: ', this.state.cart)
     return (
       <div>
         <h1>Shopping Cart</h1>

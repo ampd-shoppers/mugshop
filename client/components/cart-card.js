@@ -10,12 +10,6 @@ export class CartCard extends Component {
     this.deleteItem = this.deleteItem.bind(this)
   }
 
-  async componentDidMount() {
-    const response = await Axios.get('/api/cart/user')
-    console.log(response)
-    this.setState({cartItem: response.data})
-  }
-
   async deleteItem(id) {
     console.log('id ', id)
     try {
