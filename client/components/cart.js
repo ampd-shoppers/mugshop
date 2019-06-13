@@ -56,37 +56,42 @@ export class Cart extends Component {
     return (
       <div>
         <h1>Shopping Cart</h1>
-        <ListGroup variant="flush">
-          {this.state.cart.map(mug => <CartCard key={mug.mugId} mug={mug} />)}
+        <ListGroup variant="flush" className={classNames.cartListGroup}>
+          {this.state.cart.map(item => (
+            <CartCard key={item.mugId} item={item} />
+          ))}
         </ListGroup>
         <br />
-        {/* <h2 style={{backgroundColor: 'gray'}}>DummyData</h2>
-        <ListGroup variant="flush" className={classNames.cartListGroup}>
+        <h2 style={{backgroundColor: 'gray'}}>DummyData</h2>
+        {/* <ListGroup variant="flush" className={classNames.cartListGroup}>
           {cartThings.map(item => (
-            <ListGroup.Item
-              className={classNames.cartListGroupItem}
-              key={item.mugId}
-            >
-              <Image
-                src={item.imgSRC}
-                rounded
-                fluid
-                // style={{height: '100px'}}
-                className={classNames.cartImg}
-              />
-              <div key={item.mugId} className={classNames.cartText}>
-                <h4>{item.name}</h4>
-                <p>Quantity: {item.quantity}</p>
-                <p>{item.mugId}</p>
-              </div>
-              <div key={item.mugId} className={classNames.cartText}>
-                <h4>${item.currentPrice}</h4>
-              </div>
-              <Button className={classNames.cartButton}>
-                {' '}
-                X Remove from Cart
-              </Button>
-            </ListGroup.Item>
+            <div key={item.mugId}>
+              <ListGroup.Item
+                className={classNames.cartListGroupItem}
+                key={item.mugId}
+              >
+                <Image
+                  src={item.imgSRC}
+                  rounded
+                  fluid
+                  // style={{height: '100px'}}
+                  className={classNames.cartImg}
+                  key={item.mugId}
+                />
+                <div key={item.mugId} className={classNames.cartText}>
+                  <h4 key={item.mugId}>{item.name}</h4>
+                  <p key={item.mugId}>Quantity: {item.quantity}</p>
+                  <p key={item.mugId}>{item.mugId}</p>
+                </div>
+                <div key={item.mugId} className={classNames.cartText}>
+                  <h4 key={item.mugId}>${item.currentPrice}</h4>
+                </div>
+                <Button key={item.mugId} variant="info" className={classNames.cartButton}>
+                  {' '}
+                  X Remove from Cart
+                </Button>
+              </ListGroup.Item>
+            </div>
           ))}
         </ListGroup> */}
       </div>
