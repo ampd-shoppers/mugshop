@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Mug} = require('../server/db/models')
+const {User, Mug, Tag} = require('../server/db/models')
 const Faker = require('faker')
 
 async function seed() {
@@ -30,19 +30,50 @@ async function seed() {
   //Mugs
 
   for (i = 0; i < 1100; i++) {
-    let dummyMug = await Mug.findOrCreate({
+    let adj1 = Faker.commerce.productAdjective()
+    let adj2 = Faker.commerce.productAdjective()
+    let color = Faker.commerce.color()
+    let colorFormat = color[0].toUpperCase() + color.slice(1)
+
+    let checkDups = await Mug.findAll({
+      where: {name: `${adj1} ${adj2} ${colorFormat} Mug`}
+    })
+    if (checkDups[0]) {
+      console.log('hi')
+      continue
+    }
+
+    let mug = await Mug.create({
+      name: `${adj1} ${adj2} ${colorFormat} Mug`,
+      currentPrice: Faker.finance.amount(0, 20, 2),
+      stock: Faker.random.number(1000),
+      imgSRC: `/public/imgs/mugs/mug${i % 21}-min.jpeg`
+    })
+
+    //console.log(dummyMug[0].dataValues.id)
+    let tag1 = await Tag.findOrCreate({
       where: {
-        name: `${Faker.commerce.productAdjective()} ${Faker.commerce.productAdjective()} ${Faker.commerce.color()} Mug`
-      },
-      defaults: {
-        // name: `${Faker.commerce.productAdjective()} ${Faker.hacker.adjective()} Mug`,
-        currentPrice: Faker.finance.amount(0, 20, 2),
-        stock: Faker.random.number(1000),
-        // imgSRC: '/public/imgs/default-mug.jpg',
-        imgSRC: `/public/imgs/mugs/mug${i % 21}-min.jpeg`
+        tag: adj1
       }
     })
+    // console.log(tag1)
+    let tag2 = await Tag.findOrCreate({
+      where: {
+        tag: adj2
+      }
+    })
+
+    let tagColor = await Tag.findOrCreate({
+      where: {
+        tag: colorFormat
+      }
+    })
+    // console.log(Object.keys(mug.__proto__))
+    await mug.addTag(tag1[0].dataValues.id)
+    await mug.addTag(tag2[0].dataValues.id)
+    await mug.addTag(tagColor[0].dataValues.id)
   }
+
   console.log(`seeded mugs`)
   console.log(`seeded successfully`)
 }
