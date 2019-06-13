@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Button, ListGroup} from 'react-bootstrap'
+import Axios from 'axios'
 
 export class CartCard extends Component {
   constructor() {
@@ -11,11 +12,11 @@ export class CartCard extends Component {
   }
 
   async deleteItem(id) {
-    console.log('id ', id)
     try {
-      await Axios.delete(`/api/cart/`)
-      const response = await Axios.get('/api/cart/user')
-      this.setState({cartItem: response.data})
+      console.log('id: ', id)
+      await Axios.delete(`/api/cart/user/${id}`)
+      // const response = await Axios.get('/api/cart/user')
+      // this.setState({cartItem: response.data})
     } catch (error) {
       console.log(error)
     }
@@ -23,7 +24,10 @@ export class CartCard extends Component {
   render() {
     return (
       <ListGroup.Item>
-        {this.props.mug.mugId} <Button>Delete</Button>
+        {this.props.mug.mugId}{' '}
+        <Button onClick={() => this.deleteItem(this.props.mug.mugId)}>
+          Delete
+        </Button>
       </ListGroup.Item>
     )
   }

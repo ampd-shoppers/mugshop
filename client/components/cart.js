@@ -60,7 +60,7 @@ export class Cart extends Component {
           {this.state.cart.map(mug => <CartCard key={mug.mugId} mug={mug} />)}
         </ListGroup>
         <br />
-        <h2 style={{backgroundColor: 'gray'}}>DummyData</h2>
+        {/* <h2 style={{backgroundColor: 'gray'}}>DummyData</h2>
         <ListGroup variant="flush" className={classNames.cartListGroup}>
           {cartThings.map(item => (
             <ListGroup.Item
@@ -88,7 +88,7 @@ export class Cart extends Component {
               </Button>
             </ListGroup.Item>
           ))}
-        </ListGroup>
+        </ListGroup> */}
       </div>
     )
   }
