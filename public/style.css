@@ -19,3 +19,27 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.cardGroupMugs {
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(37, 172, 172);
+}
+
+.cardTitleMugs {
+  font-size: 1.15rem;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.NavBarStyle {
+  justify-content: space-between;
+}
+.LinkNavBarDiv {
+  display: flex;
+  justify-content: space-around;
+}
+
+:global(.active) {
+  font-weight: bold;
+  color: gray;
+}

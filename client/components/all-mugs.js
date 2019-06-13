@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import AllMugsCard from './all-mugs-card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import Axios from 'axios'
-// import classNames from '../../public/style.css';
+import classNames from '../../public/style.css'
 
 export class AllMugs extends Component {
   constructor() {
@@ -20,9 +20,10 @@ export class AllMugs extends Component {
     //console.log(this.state.mugs[0])
   }
   render() {
+    console.log(classNames.label)
     return (
       <div>
-        <CardGroup style={{justifyContent: 'center', backgroundColor: 'teal'}}>
+        <CardGroup className={classNames.cardGroupMugs}>
           {/* TODO: relink to correct mugs list not dummy data */}
           {this.state.mugs.map(mug => <AllMugsCard key={mug.id} mug={mug} />)}
         </CardGroup>
