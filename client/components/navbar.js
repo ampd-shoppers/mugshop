@@ -29,7 +29,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       </div>
       <div className={classNames.LinkNavBarDiv}>
         <Nav className="mr-auto">
-          <LinkContainer to="/mugs">
+          <LinkContainer to="/mugs/page/1">
             <Nav.Link>Mugs</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/cart">
