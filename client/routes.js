@@ -58,7 +58,7 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
     },
-    fetchAllMugs: () => dispatch(getAllMugs()),
+    fetchAllMugs: () => dispatch(getAllMugs(3)),
     fetchAllTags: () => dispatch(getAllTags())
   }
 }

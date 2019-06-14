@@ -50,8 +50,15 @@ form div {
 
 .cartListGroupItem {
   display: flex;
+  justify-content: space-between;
+  /* justify-content: flex-end; */
+  align-items: center;
 }
 
+.cartGroup {
+  display: flex;
+  justify-content: space-between;
+}
 .cartListGroup {
   padding: 2rem;
 }
