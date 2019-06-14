@@ -9,6 +9,21 @@ async function seed() {
   console.log('db synced!')
   //Users
   let i
+  let firstUser = await User.create({
+    firstName: 'Patricia',
+    lastName: 'Boer',
+    email: 'PB@email.com',
+    password: '1234',
+    permissionLevel: 'User'
+  })
+
+  let adminUser = await User.create({
+    firstName: 'Karen',
+    lastName: 'Smith',
+    email: 'admin@email.com',
+    password: '1234',
+    permissionLevel: 'Admin'
+  })
 
   for (i = 0; i < 1000; i++) {
     let dummyUser = await User.findOrCreate({
