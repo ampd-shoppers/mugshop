@@ -43,21 +43,6 @@ router.post('/', async (req, res, next) => {
       ' UserId: ',
       req.user.dataValues.id
     )
-    // const items = await CartItem.create(req.body)
-    // res.json(items)
-
-    // const addedItem = await CartItem.findOrCreate({
-    //   where: {
-    //     mugId: req.body.mugId,
-    //
-    //     //TODO: NOT LOGGED IN NULL CASE
-    //     userId: req.user.dataValues.id
-    //   },
-    //
-    //   defaults: {
-    //     quantity: 1
-    //   }
-    // })
 
     const targetMug = await Mug.findByPk(req.body.mugId)
     const targetUser = await User.findByPk(req.user.dataValues.id)

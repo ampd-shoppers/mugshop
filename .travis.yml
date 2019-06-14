@@ -19,11 +19,11 @@ script:
   - npm test             # test the code
   - npm run build-client # make the bundle
 
- before_deploy:
-   - rm -rf node_modules # omit from the tarball, since we skip cleanup
- deploy:
-   skip_cleanup: true # prevents travis from deleting the build
-   provider: heroku
-   app: mugshop
-   api_key:
-     secure: 'bAFHOwN9WKmH09DduZ5/R5lsAy/C0qo3h1vo2b3WvTz5eN9DbxUakRji6Cf5UREp9JMj9boI2he+qQJ4Cduyol0ch/g1W8z34p+6U30aeDcsQmverHL/yBi2nPlbzENMNHgMnI+sYgf+rf/cuViVVpB8snhvTvV5/ihSJiPK2ET35rdJLrrJ3sRwkA1eGJAuOF9sDAvXbAEWBWrVJ/WXB5r5FnufxwEyba16CepyP7RPP/dJ+9AngDteKC3hKN048YUDgxRKv3sBfOdQ4sJ23Yr9x89DBj5j1YiGh7HBgjekyK3W+5tbWBQiOFBRyfIDRrdPF5ZVLC4GI/zEn4ftxWAr8p5u+4xX+YuZMjG04Qu1/y9LFyqWsET8/CaJdI/sIT5lTL+Ghp/b9CyHtjB3UhOIPSCtmVZeoCYQShoxma5CGH+8KaNFRHZimPBjikmtuNTMVNaw9f4vbprmo8SwAG6weMvCzr/5utshovl7AQh7Bcw3qDDWIHn8i0Kq9ISXm+LtcZOCo8e081uQ7l4WYkjnAOrQJbe6YMYw+V41d2lnOW31FCIT1Q3ayGTbeshmbHiicHsqGe2XeZEJ5U68s+MgLUslTP2NPqEf4ZxAPewj0lWQUr3G2WHSk1ZyhGPQd6BClouT+JBHI4SmYTxuAnbqdEjG06ChOZ9Rs7zO6ZA'
+before_deploy:
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: mugshop
+  api_key:
+    secure: 'bAFHOwN9WKmH09DduZ5/R5lsAy/C0qo3h1vo2b3WvTz5eN9DbxUakRji6Cf5UREp9JMj9boI2he+qQJ4Cduyol0ch/g1W8z34p+6U30aeDcsQmverHL/yBi2nPlbzENMNHgMnI+sYgf+rf/cuViVVpB8snhvTvV5/ihSJiPK2ET35rdJLrrJ3sRwkA1eGJAuOF9sDAvXbAEWBWrVJ/WXB5r5FnufxwEyba16CepyP7RPP/dJ+9AngDteKC3hKN048YUDgxRKv3sBfOdQ4sJ23Yr9x89DBj5j1YiGh7HBgjekyK3W+5tbWBQiOFBRyfIDRrdPF5ZVLC4GI/zEn4ftxWAr8p5u+4xX+YuZMjG04Qu1/y9LFyqWsET8/CaJdI/sIT5lTL+Ghp/b9CyHtjB3UhOIPSCtmVZeoCYQShoxma5CGH+8KaNFRHZimPBjikmtuNTMVNaw9f4vbprmo8SwAG6weMvCzr/5utshovl7AQh7Bcw3qDDWIHn8i0Kq9ISXm+LtcZOCo8e081uQ7l4WYkjnAOrQJbe6YMYw+V41d2lnOW31FCIT1Q3ayGTbeshmbHiicHsqGe2XeZEJ5U68s+MgLUslTP2NPqEf4ZxAPewj0lWQUr3G2WHSk1ZyhGPQd6BClouT+JBHI4SmYTxuAnbqdEjG06ChOZ9Rs7zO6ZA'
