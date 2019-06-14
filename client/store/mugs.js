@@ -7,8 +7,8 @@ import history from '../history'
 const SET_ALL_MUGS = 'SET_ALL_MUGS'
 
 //Filter
-const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
-const SHOW_COLOR = 'SHOW_COLOR'
+// const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
+// const SHOW_COLOR = 'SHOW_COLOR'
 
 /**
  * INITIAL STATE
@@ -20,10 +20,10 @@ const defaultMugs = []
  */
 const setAllMugs = mugs => ({type: SET_ALL_MUGS, mugs})
 
-export const setVisibilityFilter = visFilter => ({
-  type: SET_VISIBILITY_FILTER,
-  visFilter
-})
+// export const setVisibilityFilter = visFilter => ({
+//   type: SET_VISIBILITY_FILTER,
+//   visFilter
+// })
 
 /**
  * THUNK CREATORS
