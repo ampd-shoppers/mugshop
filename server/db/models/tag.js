@@ -7,6 +7,9 @@ const Tag = db.define('tag', {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false
+  },
+  category: {
+    type: Sequelize.STRING
   }
 })
 

@@ -30,19 +30,20 @@ async function seed() {
   //Mugs
 
   for (i = 0; i < 1100; i++) {
+    //setting adjectives so can be used in multiple places
     let adj1 = Faker.commerce.productAdjective()
     let adj2 = Faker.commerce.productAdjective()
     let color = Faker.commerce.color()
     let colorFormat = color[0].toUpperCase() + color.slice(1)
-
+    //checking to see if mug name already exists
     let checkDups = await Mug.findAll({
       where: {name: `${adj1} ${adj2} ${colorFormat} Mug`}
     })
+    //if findAll returns a value then continue to next iteration
     if (checkDups[0]) {
-      console.log('hi')
       continue
     }
-
+    //otherwise create a new mug with these values
     let mug = await Mug.create({
       name: `${adj1} ${adj2} ${colorFormat} Mug`,
       currentPrice: Faker.finance.amount(0, 20, 2),
@@ -50,25 +51,28 @@ async function seed() {
       imgSRC: `/public/imgs/mugs/mug${i % 21}-min.jpeg`
     })
 
-    //console.log(dummyMug[0].dataValues.id)
+    //create a tag with adjective
     let tag1 = await Tag.findOrCreate({
       where: {
-        tag: adj1
+        tag: adj1,
+        category: 'type'
       }
     })
-    // console.log(tag1)
+    //create a tag with adjective
     let tag2 = await Tag.findOrCreate({
       where: {
-        tag: adj2
+        tag: adj2,
+        category: 'type'
       }
     })
-
+    //create a tag with color
     let tagColor = await Tag.findOrCreate({
       where: {
-        tag: colorFormat
+        tag: colorFormat,
+        category: 'color'
       }
     })
-    // console.log(Object.keys(mug.__proto__))
+    //add associations for the mug and the adjectives in title/name
     await mug.addTag(tag1[0].dataValues.id)
     await mug.addTag(tag2[0].dataValues.id)
     await mug.addTag(tagColor[0].dataValues.id)
