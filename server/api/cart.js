@@ -5,6 +5,8 @@ module.exports = router
 //TODO check these routes before implementing fully
 
 router.use((req, res, next) => {
+  // console.log(req.session)
+  req.session.cartItems = [{productId: 1, quantity: 3}]
   //FINNS EXAMPLE
   // console.log(req.session)
   // req.session.cartItems = [{productId: 1, quantity: 3}]
@@ -102,11 +104,22 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:userId', async (req, res, next) => {
+// router.put('/:userId', async (req, res, next) => {
+//   try {
+//     const userCart = await CartItem.findByPk(req.params.userId)
+//     const updatedCart = await userCart.update(req.body)
+//     res.json(updatedCart)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+router.put('/:mugId', async (req, res, next) => {
   try {
-    const userCart = await CartItem.findByPk(req.params.userId)
-    const updatedCart = await userCart.update(req.body)
-    res.json(updatedCart)
+    let response = await CartItem.update(
+      {quantity: req.body.qty},
+      {where: {mugId: req.params.mugId}}
+    )
+    res.send(`Updated qty of mug ${req.params.mugId} to ${req.body.qty}`)
   } catch (err) {
     next(err)
   }
@@ -117,7 +130,7 @@ router.delete('/user/:id', async (req, res, next) => {
     console.log('route delete ', req.params.id)
     const mugId = req.params.id
     if (mugId) {
-      CartItem.destroy({where: {mugId}})
+      await CartItem.destroy({where: {mugId}})
     } else {
       res.send('cannot delete mug')
     }
