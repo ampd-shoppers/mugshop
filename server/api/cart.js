@@ -69,11 +69,11 @@ router.get('/user/checkout', async (req, res, next) => {
         parseFloat(newOrder.dataValues.dollarTotal) +
         parseFloat(newOrderItem.dataValues.purchasePrice)
 
-      await newOrder.update({
-        dollarTotal: totalDollars
-      })
+      // await newOrder.update({
+      //   dollarTotal: totalDollars
+      // })
 
-      userCart[i].mug.destroy()
+      // userCart[i].mug.destroy()
     }
 
     res.json(newOrder)
