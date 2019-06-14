@@ -28,9 +28,9 @@ const mapState = state => {
   return {mugs: state.mugs}
 }
 
-const mapDispatch = dispatch => {
-  return {
-    fetchAllMugs: () => dispatch(getAllMugs())
-  }
-}
-export default connect(mapState, mapDispatch)(AllMugs)
+// const mapDispatch = dispatch => {
+//   return {
+//     fetchAllMugs: () => dispatch(getAllMugs())
+//   }
+// }
+export default connect(mapState)(AllMugs)

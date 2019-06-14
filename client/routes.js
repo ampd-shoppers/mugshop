@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
-import {me, getAllMugs} from './store'
+import {me, getAllMugs, getAllTags} from './store'
 import AllMugs from './components/all-mugs'
 import Cart from './components/cart'
 import SingleMug from './components/single-mug'
@@ -15,6 +15,7 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
     this.props.fetchAllMugs()
+    this.props.fetchAllTags()
   }
 
   render() {
@@ -57,7 +58,8 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
     },
-    fetchAllMugs: () => dispatch(getAllMugs())
+    fetchAllMugs: () => dispatch(getAllMugs()),
+    fetchAllTags: () => dispatch(getAllTags())
   }
 }
 
