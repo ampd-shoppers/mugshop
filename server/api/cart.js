@@ -1,16 +1,18 @@
 const router = require('express').Router()
-const {CartItem, User, Mug} = require('../db/models')
+const {CartItem, User, Mug, Order, OrderItem} = require('../db/models')
 module.exports = router
 
 //TODO check these routes before implementing fully
 
 router.use((req, res, next) => {
-  console.log(req.session)
-  req.session.cartItems = [{productId: 1, quantity: 3}]
+  //FINNS EXAMPLE
+  // console.log(req.session)
+  // req.session.cartItems = [{productId: 1, quantity: 3}]
   // console.log(req.user)
   next()
 })
 
+//logged in user views their cart
 router.get('/user', async (req, res, next) => {
   console.log(req.session.cartItems)
   try {
@@ -30,6 +32,51 @@ router.get('/user', async (req, res, next) => {
     } else {
       res.send('you have no items in your cart')
     }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/user/checkout', async (req, res, next) => {
+  try {
+    const userCart = await CartItem.findAll({
+      where: {userId: req.user.id},
+      include: [
+        {
+          model: Mug
+        }
+      ]
+    })
+
+    const newOrder = await Order.create({
+      userId: req.user.id,
+      dollarTotal: 0
+    })
+
+    for (let i = 0; i < userCart.length; i++) {
+      let newOrderItem = await OrderItem.create({
+        quantity: userCart[i].mug.dataValues.quantity,
+        purchasePrice: userCart[i].mug.dataValues.currentPrice,
+        mugId: userCart[i].mug.dataValues.id,
+        orderId: newOrder.dataValues.id
+      })
+      console.log(
+        newOrder.dataValues.dollarTotal,
+        newOrderItem.dataValues.purchasePrice
+      )
+
+      let totalDollars =
+        parseFloat(newOrder.dataValues.dollarTotal) +
+        parseFloat(newOrderItem.dataValues.purchasePrice)
+
+      await newOrder.update({
+        dollarTotal: totalDollars
+      })
+
+      userCart[i].mug.destroy()
+    }
+
+    res.json(newOrder)
   } catch (err) {
     next(err)
   }
