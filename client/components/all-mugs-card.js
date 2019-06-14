@@ -53,4 +53,3 @@ export class AllMugsCard extends Component {
 }
 
 export default AllMugsCard
-// export default AllMugsCard

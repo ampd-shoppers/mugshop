@@ -8,9 +8,6 @@ import {connect} from 'react-redux'
 import {getAllMugs} from '../store'
 
 export class AllMugs extends Component {
-  // async componentDidMount() {
-  //   await this.props.fetchAllMugs()
-  // }
   render() {
     console.log(this.props)
     return (
@@ -28,9 +25,4 @@ const mapState = state => {
   return {mugs: state.mugs}
 }
 
-// const mapDispatch = dispatch => {
-//   return {
-//     fetchAllMugs: () => dispatch(getAllMugs())
-//   }
-// }
 export default connect(mapState)(AllMugs)
