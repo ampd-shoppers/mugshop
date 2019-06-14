@@ -3,7 +3,7 @@ const CartItem = require('./cartItem')
 const OrderItem = require('./orderItem')
 const Order = require('./order')
 const Mug = require('./mug')
-const Review = require('./review')
+const Review = require('./Review')
 const Tag = require('./tag')
 
 /**
