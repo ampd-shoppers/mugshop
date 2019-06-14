@@ -14,8 +14,8 @@ import SingleMug from './components/single-mug'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-    this.props.fetchAllMugs()
-    this.props.fetchAllTags()
+    // this.props.fetchAllMugs()
+    // this.props.fetchAllTags()
   }
 
   render() {
@@ -27,7 +27,10 @@ class Routes extends Component {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/mugs" component={AllMugs} />
+        <Route
+          path="/mugs/page/:pageNum"
+          render={routeProps => <AllMugs {...routeProps} />}
+        />
         <Route exact path="/mugs/1" component={SingleMug} />
         {isLoggedIn && (
           <Switch>
@@ -57,9 +60,9 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-    },
-    fetchAllMugs: () => dispatch(getAllMugs(3)),
-    fetchAllTags: () => dispatch(getAllTags())
+    }
+    // fetchAllMugs: () => dispatch(getAllMugs()),
+    // fetchAllTags: () => dispatch(getAllTags())
   }
 }
 
