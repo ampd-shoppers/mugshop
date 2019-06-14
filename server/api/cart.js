@@ -23,17 +23,6 @@ router.get('/user', async (req, res, next) => {
           model: Mug
         }
       ]
-      // TODO: eagerloading mug
-
-      // const userMug = await Mug.findByPk(userCart.mugId)
-      // const cartItem1=userCart[0]
-      // console.log(cartItem1.__proto__)
-
-      //    const userCart = await Mug.findAll({
-      // include: [{
-      //   model: User,
-      //   where: {id: req.user.dataValues.id}
-      // }]
     })
 
     if (userCart) {
