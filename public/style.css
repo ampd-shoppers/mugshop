@@ -75,8 +75,12 @@ form div {
 .cartText {
   padding: 1rem 0 0 2rem;
 }
+.cartText p {
+  margin: 0;
+}
 
-.cartText h4 {
+.cartText h4,
+h5 {
   font-family: 'Fjalla One', sans-serif;
 }
 
