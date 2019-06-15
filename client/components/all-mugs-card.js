@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Button, Card, InputGroup, FormControl} from 'react-bootstrap'
 import Axios from 'axios'
 import classNames from '../../public/style.css'
+import {LinkContainer} from 'react-router-bootstrap'
 
 export class AllMugsCard extends Component {
   constructor() {
@@ -19,11 +20,15 @@ export class AllMugsCard extends Component {
     return (
       <div>
         <Card bg="light" style={{width: '18rem', margin: '.25rem'}}>
-          <Card.Img variant="top" src={this.props.mug.imgSRC} />
+          <LinkContainer to={`/mugs/${this.props.mug.id}`}>
+            <Card.Img variant="top" src={this.props.mug.imgSRC} />
+          </LinkContainer>
           <Card.Body>
-            <Card.Title className={classNames.cardTitleMugs}>
-              {this.props.mug.name}
-            </Card.Title>
+            <LinkContainer to={`/mugs/${this.props.mug.id}`}>
+              <Card.Title className={classNames.cardTitleMugs}>
+                {this.props.mug.name}
+              </Card.Title>
+            </LinkContainer>
             <Card.Subtitle>${this.props.mug.currentPrice}</Card.Subtitle>
             <Card.Text>We can add some text about the mug?</Card.Text>
             <InputGroup className="mb-1">

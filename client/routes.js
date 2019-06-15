@@ -31,7 +31,7 @@ class Routes extends Component {
           path="/mugs/page/:pageNum"
           render={routeProps => <AllMugs {...routeProps} />}
         />
-        <Route exact path="/mugs/1" component={SingleMug} />
+        <Route exact path="/mugs/:mugId" component={SingleMug} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
