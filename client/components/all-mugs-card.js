@@ -2,17 +2,27 @@ import React, {Component} from 'react'
 import {Button, Card, InputGroup, FormControl} from 'react-bootstrap'
 import Axios from 'axios'
 import classNames from '../../public/style.css'
+import ReactLoading from 'react-loading'
 
 export class AllMugsCard extends Component {
   constructor() {
     super()
+    this.state = {
+      adding: false
+    }
     this.handleAdd = this.handleAdd.bind(this)
   }
   async handleAdd(id) {
+    this.setState({adding: true})
     await Axios.post('/api/cart/', {
       mugId: id,
       qty: 1
     })
+
+    await setTimeout(() => {
+      // this.setState({ loading: false });
+      this.setState({adding: false})
+    }, 500)
   }
 
   render() {
@@ -37,12 +47,17 @@ export class AllMugsCard extends Component {
                 <Button variant="outline-secondary">Qty</Button>
               </InputGroup.Append>
             </InputGroup>
+
             <Button
               variant="primary"
               onClick={() => this.handleAdd(this.props.mug.id)}
             >
-              Add to Cart
+              {!this.state.adding && 'Add to Cart'}
+              {this.state.adding && 'Adding'}
             </Button>
+            {/* {this.state.adding && ( */}
+            <ReactLoading height="0" type="bubbles" color="blue" />
+            {/* )} */}
           </Card.Body>
         </Card>
       </div>
