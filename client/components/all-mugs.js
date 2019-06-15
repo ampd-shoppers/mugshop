@@ -27,26 +27,20 @@ export class AllMugs extends Component {
             this.props.mugs.map(mug => <AllMugsCard key={mug.id} mug={mug} />)}
         </CardGroup>
 
-        <Pagination>
-          <Pagination.First />
-          <Pagination.Prev />
-          <Pagination.Item>{1}</Pagination.Item>
-          <Pagination.Ellipsis />
-
-          <Pagination.Item>
-            {this.props.match.params.pageNum - 1}
+        <Pagination className={classNames.pageFooter}>
+          <Pagination.Item
+            href={'/mugs/page/' + (Number(this.props.match.params.pageNum) - 1)}
+          >
+            Prev
           </Pagination.Item>
           <Pagination.Item active>
             {this.props.match.params.pageNum}
           </Pagination.Item>
-          <Pagination.Item>
-            {this.props.match.params.pageNum + 1}
+          <Pagination.Item
+            href={'/mugs/page/' + (Number(this.props.match.params.pageNum) + 1)}
+          >
+            Next
           </Pagination.Item>
-
-          <Pagination.Ellipsis />
-          <Pagination.Item>{20}</Pagination.Item>
-          <Pagination.Next />
-          <Pagination.Last />
         </Pagination>
       </div>
     )
