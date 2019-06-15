@@ -86,12 +86,12 @@ router.get('/user/checkout', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log(
-      'Hi from postCart API, ',
-      req.body.mugId,
-      ' UserId: ',
-      req.user.dataValues.id
-    )
+    // console.log(
+    //   'Hi from postCart API, ',
+    //   req.body.mugId,
+    //   ' UserId: ',
+    //   req.user.dataValues.id
+    // )
 
     const targetMug = await Mug.findByPk(req.body.mugId)
     const targetUser = await User.findByPk(req.user.dataValues.id)
@@ -115,11 +115,22 @@ router.post('/', async (req, res, next) => {
 // })
 router.put('/:mugId', async (req, res, next) => {
   try {
-    let response = await CartItem.update(
+    await CartItem.update(
       {quantity: req.body.qty},
-      {where: {mugId: req.params.mugId}}
+      {
+        where: {mugId: req.params.mugId},
+        returning: true
+      }
     )
-    res.send(`Updated qty of mug ${req.params.mugId} to ${req.body.qty}`)
+    const updatedMug = await CartItem.findAll({
+      where: {mugId: req.params.mugId},
+      include: [
+        {
+          model: Mug
+        }
+      ]
+    })
+    res.send(updatedMug[0].dataValues)
   } catch (err) {
     next(err)
   }
@@ -127,15 +138,13 @@ router.put('/:mugId', async (req, res, next) => {
 
 router.delete('/user/:id', async (req, res, next) => {
   try {
-    console.log('route delete ', req.params.id)
     const mugId = req.params.id
     if (mugId) {
       await CartItem.destroy({where: {mugId}})
+      res.status(204).end()
     } else {
       res.send('cannot delete mug')
     }
-    // await CartItem.destroy({where: {mugId}})
-    // res.status(204).end()
   } catch (err) {
     next(err)
   }

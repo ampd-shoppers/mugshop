@@ -9,12 +9,10 @@ export class AllMugsCard extends Component {
     this.handleAdd = this.handleAdd.bind(this)
   }
   async handleAdd(id) {
-    console.log('hi from handleAdd in AllMugsCard')
     await Axios.post('/api/cart/', {
       mugId: id,
       qty: 1
     })
-    // console.log(id)
   }
 
   render() {
