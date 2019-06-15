@@ -9,6 +9,8 @@ import {
 } from 'react-bootstrap'
 import Axios from 'axios'
 import classNames from '../../public/style.css'
+import {connect} from 'react-redux'
+import {removeCartItem, updateMug} from '../store'
 
 export class CartCard extends Component {
   constructor() {
@@ -16,7 +18,7 @@ export class CartCard extends Component {
     this.state = {
       cartItem: []
     }
-    this.deleteItem = this.deleteItem.bind(this)
+    // this.deleteItem = this.deleteItem.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -24,21 +26,14 @@ export class CartCard extends Component {
     try {
       const qty = event.target.value
       const mugId = this.props.item.mugId
-      let res = await Axios.put(`/api/cart/${mugId}`, {qty})
-      console.log(res.data)
+      // let res = await Axios.put(`/api/cart/${mugId}`, {qty})
+      this.props.updateQty(mugId, qty)
+      // console.log(res.data)
     } catch (error) {
       console.log(error)
     }
   }
 
-  async deleteItem(id) {
-    try {
-      console.log('id: ', id)
-      await Axios.delete(`/api/cart/user/${id}`)
-    } catch (error) {
-      console.log(error)
-    }
-  }
   render() {
     return (
       <ListGroup.Item className={classNames.cartListGroupItem}>
@@ -73,7 +68,7 @@ export class CartCard extends Component {
         </div>
         <Button
           variant="info"
-          onClick={() => this.deleteItem(this.props.item.mugId)}
+          onClick={() => this.props.deleteCartItem(this.props.item.mugId)}
           className={classNames.cartButton}
         >
           X Remove from Cart
@@ -82,5 +77,10 @@ export class CartCard extends Component {
     )
   }
 }
-
-export default CartCard
+const mapDispatch = dispatch => {
+  return {
+    deleteCartItem: id => dispatch(removeCartItem(id)),
+    updateQty: (mugId, qty) => dispatch(updateMug(mugId, qty))
+  }
+}
+export default connect(null, mapDispatch)(CartCard)
