@@ -8,6 +8,13 @@ const SET_CART = 'SET_CART'
 export const DELETE_MUG_CART = 'DELETE_MUG_CART'
 export const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
 
+export const ADD_MUG = 'ADD_MUG'
+
+export const addMugToCart = mug => ({
+  type: ADD_MUG,
+  mug
+})
+
 /**
  * INITIAL STATE
  */
@@ -54,6 +61,17 @@ export const updateMug = (mugId, qty) => async dispatch => {
     const response = await Axios.put(`/api/cart/${mugId}`, {qty})
     const updatedMug = response.data
     dispatch(updateMugQuantity(updatedMug))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const addNewMug = () => async dispatch => {
+  try {
+    await Axios.post('/api/cart/', {
+      mugId: id,
+      qty: 1
+    })
   } catch (err) {
     console.error(err)
   }

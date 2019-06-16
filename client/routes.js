@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
-import {me, getAllMugs, getCart} from './store'
+import {me, getAllMugs, getAllTags, logout, getCart} from './store'
 import AllMugs from './components/all-mugs'
 import Cart from './components/cart'
 import SingleMug from './components/single-mug'
@@ -32,7 +32,7 @@ class Routes extends Component {
           path="/mugs/page/:pageNum"
           render={routeProps => <AllMugs {...routeProps} />}
         />
-        <Route exact path="/mugs/1" component={SingleMug} />
+        <Route exact path="/mugs/:mugId" component={SingleMug} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

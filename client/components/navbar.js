@@ -44,6 +44,9 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => {
             <LinkContainer to="/login">
               <Nav.Link> Login </Nav.Link>
             </LinkContainer>
+            <LinkContainer onClick={handleClick} to="/login">
+              <Nav.Link> Logout </Nav.Link>
+            </LinkContainer>
           </Nav>
         </div>
       </BSNavbar>
@@ -92,6 +95,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleClick() {
+      console.log('is called?')
       dispatch(logout())
     }
   }
