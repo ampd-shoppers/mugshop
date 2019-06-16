@@ -20,6 +20,8 @@ Mug.hasMany(Review)
 
 Mug.belongsToMany(Order, {through: OrderItem})
 Order.belongsToMany(Mug, {through: OrderItem})
+OrderItem.belongsTo(Order)
+OrderItem.belongsTo(Mug)
 
 Order.belongsTo(User)
 User.hasMany(Order)

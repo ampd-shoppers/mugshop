@@ -6,8 +6,9 @@ import user from './user'
 import mugs from './mugs'
 import cart from './cart'
 import tags from './tags'
+import orders from './orders'
 
-const reducer = combineReducers({user, mugs, cart, tags})
+const reducer = combineReducers({user, mugs, cart, tags, orders})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
@@ -18,3 +19,4 @@ export * from './user'
 export * from './mugs'
 export * from './cart'
 export * from './tags'
+export * from './orders'
