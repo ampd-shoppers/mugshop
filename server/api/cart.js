@@ -58,7 +58,7 @@ router.get('/user/checkout', async (req, res, next) => {
     for (let i = 0; i < userCart.length; i++) {
       //create orderItems from cartItems & associates them with newOrder
       let newOrderItem = await OrderItem.create({
-        quantity: userCart[i].mug.dataValues.quantity,
+        quantity: userCart[i].dataValues.quantity,
         purchasePrice: userCart[i].mug.dataValues.currentPrice,
         mugId: userCart[i].mug.dataValues.id,
         orderId: newOrder.dataValues.id

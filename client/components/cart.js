@@ -10,7 +10,7 @@ import CartCard from './cart-card'
 import classNames from '../../public/style.css'
 
 import {connect} from 'react-redux'
-import {getCart} from '../store'
+import {getCart, checkoutCart} from '../store'
 
 export class Cart extends Component {
   constructor() {
@@ -39,6 +39,7 @@ export class Cart extends Component {
               <CartCard key={item.mugId} item={item} />
             ))}
         </ListGroup>
+        <Button onClick={() => this.props.checkout()}>Checkout</Button>
       </div>
     )
   }
@@ -50,7 +51,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchCart: () => dispatch(getCart())
+    fetchCart: () => dispatch(getCart()),
+    checkout: () => dispatch(checkoutCart())
   }
 }
 export default connect(mapState, mapDispatch)(Cart)

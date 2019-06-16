@@ -7,6 +7,7 @@ import {me, getAllMugs, getAllTags, logout, getCart} from './store'
 import AllMugs from './components/all-mugs'
 import Cart from './components/cart'
 import SingleMug from './components/single-mug'
+import AllOrders from './components/all-orders'
 
 /**
  * COMPONENT
@@ -33,6 +34,7 @@ class Routes extends Component {
           render={routeProps => <AllMugs {...routeProps} />}
         />
         <Route exact path="/mugs/:mugId" component={SingleMug} />
+        <Route exact path="/orders" component={AllOrders} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

@@ -7,13 +7,8 @@ import history from '../history'
 const SET_CART = 'SET_CART'
 export const DELETE_MUG_CART = 'DELETE_MUG_CART'
 export const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
-
 export const ADD_MUG = 'ADD_MUG'
-
-export const addMugToCart = mug => ({
-  type: ADD_MUG,
-  mug
-})
+export const CLEAR_CART = 'CLEAR_CART'
 
 /**
  * INITIAL STATE
@@ -33,6 +28,15 @@ export const deleteMugCart = mugId => ({
 export const updateMugQuantity = updatedMug => ({
   type: UPDATE_QUANTITY,
   updatedMug
+})
+
+export const addMugToCart = mug => ({
+  type: ADD_MUG,
+  mug
+})
+
+export const clearCart = () => ({
+  type: CLEAR_CART
 })
 /**
  * THUNK CREATORS
@@ -77,6 +81,15 @@ export const addNewMug = () => async dispatch => {
   }
 }
 
+export const checkoutCart = () => async dispatch => {
+  try {
+    await Axios.get('api/cart/user/checkout')
+    dispatch(clearCart())
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -94,6 +107,8 @@ export default function(state = defaultCart, action) {
           return mug
         }
       })
+    case CLEAR_CART:
+      return defaultCart
     default:
       return state
   }
