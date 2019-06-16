@@ -70,12 +70,17 @@ export const updateMug = (mugId, qty) => async dispatch => {
   }
 }
 
-export const addNewMug = () => async dispatch => {
+export const addNewMug = id => async dispatch => {
   try {
-    await Axios.post('/api/cart/', {
+    let response = await Axios.post('/api/cart/', {
       mugId: id,
       qty: 1
     })
+    console.log('response from store cart addNewMug', response.data)
+    if (response.data !== 'Already In Cart') {
+      dispatch(addMugToCart(response.data))
+    }
+    return response.data
   } catch (err) {
     console.error(err)
   }
@@ -107,6 +112,8 @@ export default function(state = defaultCart, action) {
           return mug
         }
       })
+    case ADD_MUG:
+      return state.concat(action.mug)
     case CLEAR_CART:
       return defaultCart
     default:

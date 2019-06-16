@@ -29,6 +29,7 @@ export class Cart extends Component {
   }
 
   render() {
+    console.log(this.props.cart)
     return (
       <div>
         <h1>Shopping Cart</h1>

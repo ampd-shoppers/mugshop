@@ -84,12 +84,24 @@ router.get('/user/checkout', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const targetMug = await Mug.findByPk(req.body.mugId)
-    const targetUser = await User.findByPk(req.user.dataValues.id)
-    await targetMug.addUser(targetUser)
-    await targetUser.addMug(targetMug)
-
-    res.json(targetMug)
+    const exists = await CartItem.findOne({where: {mugId: req.body.mugId}})
+    if (!exists) {
+      const targetMug = await Mug.findByPk(req.body.mugId)
+      const targetUser = await User.findByPk(req.user.dataValues.id)
+      await targetMug.addUser(targetUser)
+      await targetUser.addMug(targetMug)
+      const newCartItem = await CartItem.findOne({
+        where: {mugId: req.body.mugId},
+        include: [
+          {
+            model: Mug
+          }
+        ]
+      })
+      res.json(newCartItem)
+    } else {
+      res.send('Already In Cart')
+    }
   } catch (err) {
     next(err)
   }

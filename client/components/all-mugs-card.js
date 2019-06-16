@@ -3,6 +3,11 @@ import {Button, Card, InputGroup, FormControl} from 'react-bootstrap'
 import Axios from 'axios'
 import classNames from '../../public/style.css'
 import {LinkContainer} from 'react-router-bootstrap'
+import {connect} from 'react-redux'
+import {removeCartItem, updateMug, addNewMug} from '../store'
+// import {Spinner} from 'belle'/
+// var belle = require('belle');
+// var Spinner = belle.Spinner;
 
 export class AllMugsCard extends Component {
   constructor() {
@@ -14,13 +19,13 @@ export class AllMugsCard extends Component {
   }
   async handleAdd(id) {
     this.setState({adding: true})
-    await Axios.post('/api/cart/', {
-      mugId: id,
-      qty: 1
-    })
 
-    await setTimeout(() => {
-      // this.setState({ loading: false });
+    await setTimeout(async () => {
+      let response = await this.props.addMugCart(id)
+      // if(response ==="Already In Cart"){
+
+      // }
+      // console.log('set Time out response this.props', response)
       this.setState({adding: false})
     }, 500)
   }
@@ -57,7 +62,7 @@ export class AllMugsCard extends Component {
               onClick={() => this.handleAdd(this.props.mug.id)}
             >
               {!this.state.adding && 'Add to Cart'}
-              {this.state.adding && 'Adding ...'}
+              {this.state.adding && 'Adding'}
             </Button>
           </Card.Body>
         </Card>
@@ -65,5 +70,11 @@ export class AllMugsCard extends Component {
     )
   }
 }
-
-export default AllMugsCard
+const mapDispatch = dispatch => {
+  return {
+    deleteCartItem: id => dispatch(removeCartItem(id)),
+    updateQty: (mugId, qty) => dispatch(updateMug(mugId, qty)),
+    addMugCart: mugId => dispatch(addNewMug(mugId))
+  }
+}
+export default connect(null, mapDispatch)(AllMugsCard)
