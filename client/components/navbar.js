@@ -30,9 +30,7 @@ const Navbar = ({handleClick, isLoggedIn, cart, email, name}) => {
         {email && <span>Welcome, {name} !</span>}{' '}
         {!email && <span>Welcome Guest!</span>}
       </BSNavbar.Brand>
-
-      {/* <BSNavbar.Brand>Welcome, {email}! */}
-      <Nav>
+      <Nav className="justify-content-end">
         <LinkContainer to="/mugs/page/1">
           <Nav.Link>Mugs</Nav.Link>
         </LinkContainer>
