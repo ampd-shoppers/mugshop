@@ -5,15 +5,15 @@ import Axios from 'axios'
 import classNames from '../../public/style.css'
 
 export default class SingleMug extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       mug: {}
     }
   }
 
   async componentDidMount() {
-    let oneMug = await Axios.get('/api/mugs/1')
+    let oneMug = await Axios.get(`/api/mugs/${this.props.match.params.mugId}`)
     this.setState({mug: oneMug.data})
     console.log(this.state)
   }
