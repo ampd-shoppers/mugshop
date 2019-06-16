@@ -10,45 +10,49 @@ import {LinkContainer} from 'react-router-bootstrap'
 import Routes from '../routes'
 import classNames from '../../public/style.css'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1 className={classNames.navBarH1}>MugShop☕</h1>
-    <BSNavbar
-      fill="true"
-      collapseOnSelect
-      expand="lg"
-      bg="light"
-      variant="light"
-      sticky="top"
-      className={classNames.NavBarStyle}
-    >
-      <div>
-        <LinkContainer to="/home">
-          <BSNavbar.Brand>Home</BSNavbar.Brand>
-        </LinkContainer>
-      </div>
-      <div className={classNames.LinkNavBarDiv}>
-        <Nav className="mr-auto">
-          <LinkContainer to="/mugs/page/1">
-            <Nav.Link>Mugs</Nav.Link>
+const Navbar = ({handleClick, isLoggedIn, cart}) => {
+  let numItems = cart.length
+  console.log(numItems)
+  return (
+    <div>
+      <h1 className={classNames.navBarH1}>MugShop☕</h1>
+      <BSNavbar
+        fill="true"
+        collapseOnSelect
+        expand="lg"
+        bg="light"
+        variant="light"
+        sticky="top"
+        className={classNames.NavBarStyle}
+      >
+        <div>
+          <LinkContainer to="/home">
+            <BSNavbar.Brand>Home</BSNavbar.Brand>
           </LinkContainer>
-          <LinkContainer to="/cart">
-            <Nav.Link>Cart</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/signup">
-            <Nav.Link> Sign Up </Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/login">
-            <Nav.Link> Login </Nav.Link>
-          </LinkContainer>
-          <LinkContainer onClick={handleClick} to="/login">
-            <Nav.Link> Logout </Nav.Link>
-          </LinkContainer>
-        </Nav>
-      </div>
-    </BSNavbar>
-  </div>
-)
+        </div>
+        <div className={classNames.LinkNavBarDiv}>
+          <Nav className="mr-auto">
+            <LinkContainer to="/mugs/page/1">
+              <Nav.Link>Mugs</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/cart">
+              <Nav.Link>Cart ({numItems})</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/signup">
+              <Nav.Link> Sign Up </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/login">
+              <Nav.Link> Login </Nav.Link>
+            </LinkContainer>
+            <LinkContainer onClick={handleClick} to="/login">
+              <Nav.Link> Logout </Nav.Link>
+            </LinkContainer>
+          </Nav>
+        </div>
+      </BSNavbar>
+    </div>
+  )
+}
 
 //  <LinkContainer to="/api/mugs">
 //     <NavItem>Mugs</NavItem>
@@ -83,7 +87,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.cart
   }
 }
 

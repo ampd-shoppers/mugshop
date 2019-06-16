@@ -46,9 +46,18 @@ export class CartCard extends Component {
         <div className={classNames.cartText}>
           <h4>{this.props.item.mug.name}</h4>
           <p>Quantity: {this.props.item.quantity}</p>
+          <p>Individual Price: ${this.props.item.mug.currentPrice}</p>
         </div>
         <div className={classNames.cartText}>
-          <h4>${this.props.item.mug.currentPrice}</h4>
+          <h5>Total Price: </h5>
+          <h5>
+            ${(
+              this.props.item.quantity * this.props.item.mug.currentPrice
+            ).toFixed(2)}
+          </h5>
+          <p>
+            ({this.props.item.quantity}x{this.props.item.mug.currentPrice})
+          </p>
         </div>
         <div>
           <Form.Label>Quantity: </Form.Label>
