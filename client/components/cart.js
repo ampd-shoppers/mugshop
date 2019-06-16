@@ -40,7 +40,12 @@ export class Cart extends Component {
               <CartCard key={item.mugId} item={item} />
             ))}
         </ListGroup>
-        <Button onClick={() => this.props.checkout()}>Checkout</Button>
+        <Button
+          disabled={!this.props.cart[0]}
+          onClick={() => this.props.checkout()}
+        >
+          Checkout
+        </Button>
       </div>
     )
   }

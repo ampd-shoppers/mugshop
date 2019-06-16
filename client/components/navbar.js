@@ -10,7 +10,7 @@ import {LinkContainer} from 'react-router-bootstrap'
 import Routes from '../routes'
 import classNames from '../../public/style.css'
 
-const Navbar = ({handleClick, isLoggedIn, cart}) => {
+const Navbar = ({handleClick, isLoggedIn, cart, email, name}) => {
   let numItems = cart.length
   console.log(numItems)
   return (
@@ -25,22 +25,18 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => {
         sticky="top"
         className={classNames.NavBarStyle}
       >
-        <div>
-          <LinkContainer to="/home">
-            <BSNavbar.Brand>Home</BSNavbar.Brand>
+        <BSNavbar.Brand>Welcome, {email}!</BSNavbar.Brand>
+        <Nav>
+          <LinkContainer to="/mugs/page/1">
+            <Nav.Link>Mugs</Nav.Link>
           </LinkContainer>
-        </div>
-        <div className={classNames.LinkNavBarDiv}>
-          <Nav className="mr-auto">
-            <LinkContainer to="/mugs/page/1">
-              <Nav.Link>Mugs</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/cart">
-              <Nav.Link>Cart ({numItems})</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/orders">
-              <Nav.Link> Orders </Nav.Link>
-            </LinkContainer>
+          <LinkContainer to="/cart">
+            <Nav.Link>Cart ({numItems})</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/orders">
+            <Nav.Link> Orders </Nav.Link>
+          </LinkContainer>
+          <NavDropdown title="Profile" id="basic-nav-dropdown">
             <LinkContainer to="/signup">
               <Nav.Link> Sign Up </Nav.Link>
             </LinkContainer>
@@ -50,8 +46,8 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => {
             <LinkContainer onClick={handleClick} to="/login">
               <Nav.Link> Logout </Nav.Link>
             </LinkContainer>
-          </Nav>
-        </div>
+          </NavDropdown>
+        </Nav>
       </BSNavbar>
     </div>
   )
@@ -91,7 +87,8 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    cart: state.cart
+    cart: state.cart,
+    email: state.user.email
   }
 }
 
