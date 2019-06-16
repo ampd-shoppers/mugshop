@@ -25,6 +25,28 @@ form div {
   justify-content: center;
   background-color: rgb(37, 172, 172);
   padding: 2rem;
+
+  /* Background */
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(/imgs/jail.jpg); */
+  /* height:90vh; */
+  /* background-size: cover; */
+  /* background-position: center center;*/
+  /* background-repeat: no-repeat; */
+  /* background-attachment: fixed;  */
+}
+.introBlock {
+  /* Edit Size */
+  width: 100vw;
+  /* how much of vw / wh -- view window to cover*/
+  height: 90vh;
+
+  /*Box adjustments*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Text Align */
+  text-align: center;
 }
 
 .navBarH1 {
