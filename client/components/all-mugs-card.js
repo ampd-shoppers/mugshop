@@ -5,9 +5,6 @@ import classNames from '../../public/style.css'
 import {LinkContainer} from 'react-router-bootstrap'
 import {connect} from 'react-redux'
 import {removeCartItem, updateMug, addNewMug} from '../store'
-// import {Spinner} from 'belle'/
-// var belle = require('belle');
-// var Spinner = belle.Spinner;
 
 export class AllMugsCard extends Component {
   constructor() {
@@ -62,7 +59,7 @@ export class AllMugsCard extends Component {
               onClick={() => this.handleAdd(this.props.mug.id)}
             >
               {!this.state.adding && 'Add to Cart'}
-              {this.state.adding && 'Adding'}
+              {this.state.adding && 'Adding...'}
             </Button>
           </Card.Body>
         </Card>
