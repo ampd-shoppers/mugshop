@@ -7,7 +7,7 @@ import {Button} from 'react-bootstrap'
 import Pagination from 'react-bootstrap/Pagination'
 
 import {connect} from 'react-redux'
-import {getAllMugs, getAllTags} from '../store'
+import {getAllMugs, getAllTags, logout} from '../store'
 
 export class AllMugs extends Component {
   componentDidMount() {
