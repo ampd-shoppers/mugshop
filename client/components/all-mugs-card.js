@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {Button, Card, InputGroup, FormControl} from 'react-bootstrap'
 import Axios from 'axios'
 import classNames from '../../public/style.css'
-import ReactLoading from 'react-loading'
 
 export class AllMugsCard extends Component {
   constructor() {
@@ -53,11 +52,8 @@ export class AllMugsCard extends Component {
               onClick={() => this.handleAdd(this.props.mug.id)}
             >
               {!this.state.adding && 'Add to Cart'}
-              {this.state.adding && 'Adding'}
+              {this.state.adding && 'Adding ...'}
             </Button>
-            {/* {this.state.adding && ( */}
-            <ReactLoading height="0" type="bubbles" color="blue" />
-            {/* )} */}
           </Card.Body>
         </Card>
       </div>

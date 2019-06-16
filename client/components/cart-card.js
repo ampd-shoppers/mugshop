@@ -55,6 +55,9 @@ export class CartCard extends Component {
               this.props.item.quantity * this.props.item.mug.currentPrice
             ).toFixed(2)}
           </h5>
+          <p>
+            ({this.props.item.quantity}x{this.props.item.mug.currentPrice})
+          </p>
         </div>
         <div>
           <Form.Label>Quantity: </Form.Label>
