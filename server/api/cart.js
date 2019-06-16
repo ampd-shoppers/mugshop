@@ -5,21 +5,19 @@ module.exports = router
 //TODO check these routes before implementing fully
 
 router.use((req, res, next) => {
-  // console.log(req.session)
-  req.session.cartItems = [{productId: 1, quantity: 3}]
   //FINNS EXAMPLE
+  // console.log(req.session)
+  // req.session.cartItems = [{productId: 1, quantity: 3}]
   // console.log(req.session)
   // req.session.cartItems = [{productId: 1, quantity: 3}]
   // console.log(req.user)
   next()
 })
 
-//logged in user views their cart
+//logged in user views their cartItems (forming their cart)
 router.get('/user', async (req, res, next) => {
   console.log(req.session.cartItems)
   try {
-    // console.log(req)
-    // console.log(req.user.id)
     const userCart = await CartItem.findAll({
       where: {userId: req.user.id},
       include: [
@@ -39,8 +37,10 @@ router.get('/user', async (req, res, next) => {
   }
 })
 
+//converts cartitems to orderitems & order
 router.get('/user/checkout', async (req, res, next) => {
   try {
+    //users current cart
     const userCart = await CartItem.findAll({
       where: {userId: req.user.id},
       include: [
@@ -56,26 +56,24 @@ router.get('/user/checkout', async (req, res, next) => {
     })
 
     for (let i = 0; i < userCart.length; i++) {
+      //create orderItems from cartItems & associates them with newOrder
       let newOrderItem = await OrderItem.create({
         quantity: userCart[i].mug.dataValues.quantity,
         purchasePrice: userCart[i].mug.dataValues.currentPrice,
         mugId: userCart[i].mug.dataValues.id,
         orderId: newOrder.dataValues.id
       })
-      console.log(
-        newOrder.dataValues.dollarTotal,
-        newOrderItem.dataValues.purchasePrice
-      )
 
+      //update Order dollar Total
       let totalDollars =
         parseFloat(newOrder.dataValues.dollarTotal) +
         parseFloat(newOrderItem.dataValues.purchasePrice)
+      await newOrder.update({
+        dollarTotal: totalDollars
+      })
 
-      // await newOrder.update({
-      //   dollarTotal: totalDollars
-      // })
-
-      // userCart[i].mug.destroy()
+      //delete cartItem
+      await userCart[i].destroy()
     }
 
     res.json(newOrder)
@@ -86,13 +84,6 @@ router.get('/user/checkout', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    // console.log(
-    //   'Hi from postCart API, ',
-    //   req.body.mugId,
-    //   ' UserId: ',
-    //   req.user.dataValues.id
-    // )
-
     const targetMug = await Mug.findByPk(req.body.mugId)
     const targetUser = await User.findByPk(req.user.dataValues.id)
     await targetMug.addUser(targetUser)
