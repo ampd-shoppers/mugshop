@@ -30,11 +30,28 @@ export default class SingleOrder extends Component {
     console.log('this state: ', this.state)
     return (
       <div>
-        {this.state.order[0] &&
-          this.state.order.map(item => (
-            <ListGroup.Item key={item.mugId}>{item.mug.name}</ListGroup.Item>
-            //use purchase price
-          ))}
+        <ListGroup variant="flush">
+          {this.state.order[0] &&
+            this.state.order.map(order => (
+              <ListGroup.Item key={order.orderId} order={order}>
+                <ListGroup.Item className={classNames.cartListGroupItem}>
+                  {console.log('single order: ', order)}
+                  <Image
+                    src={order.mug.imgSRC}
+                    rounded
+                    fluid
+                    className={classNames.cartImg}
+                  />
+                  <div className={classNames.cartText}>
+                    <h4>{order.mug.name}</h4>
+                    <h4>Purchased at: ${order && order.purchasePrice}</h4>
+                    <h4>Quantity: *currently null{order && order.quantity}</h4>
+                  </div>
+                  {/* <ListGroup.Item key={order.mugId}>{order.mug.purchasePrice}</ListGroup.Item> */}
+                </ListGroup.Item>
+              </ListGroup.Item>
+            ))}
+        </ListGroup>
       </div>
     )
   }

@@ -12,7 +12,7 @@ import Filter from './filter'
 
 export class AllMugs extends Component {
   componentDidMount() {
-    console.log('mug props: ', this.props)
+    // console.log('mug props: ', this.props)
     this.props.fetchAllMugs(this.props.match.params.pageNum)
     this.props.fetchAllTags()
   }
