@@ -122,3 +122,8 @@ h5 {
   justify-content: center;
   margin-top: 1rem;
 }
+
+.filterDropdown {
+  background-color: rgb(37, 172, 172);
+  border: none;
+}

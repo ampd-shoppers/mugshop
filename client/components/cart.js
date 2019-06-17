@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
+import {Col, Row} from 'react-bootstrap'
 
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Axios from 'axios'
@@ -32,20 +33,24 @@ export class Cart extends Component {
     console.log(this.props.cart)
     return (
       <div>
-        <h1>Shopping Cart</h1>
-        <h4>Cart Total: ${this.total().toFixed(2)}</h4>
+        <Row>
+          <Col>
+            <h1>Shopping Cart</h1>
+            <h4>Cart Total: ${this.total().toFixed(2)}</h4>
+            <Button
+              disabled={!this.props.cart[0]}
+              onClick={() => this.props.checkout()}
+            >
+              Checkout
+            </Button>
+          </Col>
+        </Row>
         <ListGroup variant="flush" className={classNames.cartListGroup}>
           {this.props.cart &&
             this.props.cart.map(item => (
               <CartCard key={item.mugId} item={item} />
             ))}
         </ListGroup>
-        <Button
-          disabled={!this.props.cart[0]}
-          onClick={() => this.props.checkout()}
-        >
-          Checkout
-        </Button>
       </div>
     )
   }
