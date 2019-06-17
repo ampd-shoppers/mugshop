@@ -16,11 +16,22 @@ router.post('/login', async (req, res, next) => {
       const guestCart = await cartItem.findAll({
         where: {sessionId: req.sessionID}
       })
+      const userCart = await cartItem.findAll({
+        where: {userId: user.id}
+      })
       if (guestCart) {
         for (let i in guestCart) {
-          await guestCart[i].update({
-            userId: user.id
-          })
+          let mugDuplicate = false
+          for (let j in userCart) {
+            if (guestCart[i].mugId === userCart[j].mugId) {
+              mugDuplicate = true
+            }
+          }
+          if (mugDuplicate === false) {
+            await guestCart[i].update({
+              userId: user.id
+            })
+          }
         }
       }
       req.login(user, err => (err ? next(err) : res.json(user)))
