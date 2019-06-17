@@ -75,6 +75,14 @@ export class CartCard extends Component {
             {/* selected={`${this.value===this.props.item.quantity ? 'selected': ''}`} */}
           </Form.Control>
         </div>
+        {this.props.item.mug.stock >= this.props.item.quantity ? (
+          <span />
+        ) : (
+          <span className="alert-text">
+            Only {this.props.item.mug.stock} left!{' '}
+          </span>
+        )}
+
         <Button
           variant="info"
           onClick={() => this.props.deleteCartItem(this.props.item.mugId)}

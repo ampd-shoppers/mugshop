@@ -88,8 +88,11 @@ export const addNewMug = id => async dispatch => {
 
 export const checkoutCart = () => async dispatch => {
   try {
-    await Axios.get('api/cart/user/checkout')
-    dispatch(clearCart())
+    let response = await Axios.get('api/cart/user/checkout')
+    console.log(response.data)
+    if (typeof response.data !== 'string') {
+      dispatch(clearCart())
+    }
   } catch (err) {
     console.error(err)
   }
