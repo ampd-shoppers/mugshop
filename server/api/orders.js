@@ -12,6 +12,40 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+router.get('/all', async (req, res, next) => {
+  try {
+    if (req.isAdmin) {
+      let allOrders = await Order.findAll()
+      res.json(allOrders)
+    } else {
+      res.send(
+        'You are not an Admin. Please log in or contact support if this is not correct'
+      )
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:orderId', async (req, res, next) => {
+  try {
+    const orderId = await OrderItem.findAll({
+      where: {orderId: req.params.orderId},
+      include: [
+        {
+          model: Mug
+        }
+      ]
+    })
+    if (orderId) {
+      res.json(orderId)
+    } else {
+      res.send('order not found')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
 
 router.get('/:orderId', async (req, res, next) => {
   try {

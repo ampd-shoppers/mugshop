@@ -9,6 +9,7 @@ import Cart from './components/cart'
 import SingleMug from './components/single-mug'
 import AllOrders from './components/all-orders'
 import SingleOrder from './components/single-order'
+import AdminPage from './components/admin-page'
 
 /**
  * COMPONENT
@@ -37,6 +38,7 @@ class Routes extends Component {
         <Route exact path="/mugs/:mugId" component={SingleMug} />
         <Route exact path="/orders" component={AllOrders} />
         <Route path="/orders/:orderId" component={SingleOrder} />
+        <Route path="/admin" component={AdminPage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
