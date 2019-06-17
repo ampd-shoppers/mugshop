@@ -1,50 +1,99 @@
 import React, {Component} from 'react'
-import {Button, Card, Accordion} from 'react-bootstrap'
+import {Button, Card, Accordion, ListGroup} from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 import classNames from '../../public/style.css'
+import Axios from 'axios'
 
 export class AdminPage extends Component {
+  constructor() {
+    super()
+    this.state = {
+      orders: [],
+      users: [],
+      allmugs: []
+    }
+  }
+  async componentDidMount() {
+    let allOrders = await Axios.get('api/orders/all')
+    let allUsers = await Axios.get('api/users/all')
+    let allMugs = await Axios.get('api/mugs/')
+    if (
+      allOrders.data ===
+      'You are not an Admin. Please log in or contact support if this is not correct'
+    ) {
+      this.setState({
+        orders: 'N/A',
+        users: 'N/A',
+        allmugs: 'N/A'
+      })
+    } else {
+      this.setState({
+        orders: allOrders.data,
+        users: allUsers.data,
+        allmugs: allMugs.data
+      })
+    }
+  }
   render() {
     return (
-      <div>
-        <div className="container">
-          <div className="row">
-            <div className={classNames.adminData}>One of three columns</div>
-            <div className={classNames.adminData}>One of three columns</div>
-            <div className={classNames.adminData}>One of three columns</div>
+      <div className={classNames.admin}>
+        <h1>Admin Home Page</h1>
+        <div className={`${classNames.adminOverview} container`}>
+          <h4>Overview Summary</h4>
+          <div className="row justify-content-around">
+            <div className={`${classNames.adminData} col-sm`}>
+              <h3>Orders</h3>
+              <h1>
+                {this.state.orders === 'N/A' ? 'N/A' : this.state.orders.length}
+              </h1>
+            </div>
+            <div className={`${classNames.adminData} col-sm`}>
+              <h3>Users</h3>
+              <h1>
+                {this.state.orders === 'N/A' ? 'N/A' : this.state.users.length}
+              </h1>
+            </div>
+            <div className={`${classNames.adminData} col-sm`}>
+              <h3>Products</h3>
+              <h1>
+                {this.state.orders === 'N/A'
+                  ? 'N/A'
+                  : this.state.allmugs.length}
+              </h1>
+            </div>
           </div>
         </div>
-        <div style={{width: '30vw'}}>
-          <h2>Modify Orders or Users</h2>
-          <Accordion defaultActiveKey="0">
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                  Manage Orders
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <LinkContainer to="/mugs/order/edit/orderid">
-                    <p>Edit Individual Order</p>
-                  </LinkContainer>
-                  <LinkContainer to="/mugs/orders/all">
-                    <span>View All Orders</span>
-                  </LinkContainer>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                  Manage Users
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="1">
-                <Card.Body>Hello! I'm another body</Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
+        {/* //EDIT MENU */}
+        <div className={`${classNames.adminOverview} container`}>
+          <h4>Edit Orders, Users, and Products</h4>
+          <div className="row justify-content-around">
+            <div className="col-sm">
+              <ListGroup>
+                <ListGroup.Item>
+                  <h5>Orders</h5>
+                </ListGroup.Item>
+                <ListGroup.Item>Edit Single Order</ListGroup.Item>
+              </ListGroup>
+            </div>
+            <div className="col-sm">
+              <ListGroup>
+                <ListGroup.Item>
+                  <h5>Users</h5>
+                </ListGroup.Item>
+                <ListGroup.Item>Edit Single User</ListGroup.Item>
+                <ListGroup.Item>View All Users</ListGroup.Item>
+              </ListGroup>
+            </div>
+            <div className="col-sm">
+              <ListGroup>
+                <ListGroup.Item>
+                  <h5>Products</h5>
+                </ListGroup.Item>
+                <ListGroup.Item>Edit Single Product</ListGroup.Item>
+                <ListGroup.Item>View All Products</ListGroup.Item>
+              </ListGroup>
+            </div>
+          </div>
         </div>
       </div>
     )

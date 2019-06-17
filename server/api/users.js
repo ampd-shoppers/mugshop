@@ -27,6 +27,21 @@ const isAdmin = (req, res, next) => {
   next()
 }
 
+router.get('/all', async (req, res, next) => {
+  try {
+    if (req.isAdmin) {
+      let allUsers = await User.findAll()
+      res.json(allUsers)
+    } else {
+      res.send(
+        'You are not an Admin. Please log in or contact support if this is not correct'
+      )
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
 //TODO: cleanup
 router.get('/1admin', isAdmin, async (req, res, next) => {
   const user1 = await User.findByPk(1)

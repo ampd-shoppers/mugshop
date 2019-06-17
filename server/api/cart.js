@@ -102,7 +102,8 @@ router.get('/user/checkout', async (req, res, next) => {
       //update Order dollar Total
       let totalDollars =
         parseFloat(newOrder.dataValues.dollarTotal) +
-        parseFloat(newOrderItem.dataValues.purchasePrice)
+        parseFloat(newOrderItem.dataValues.purchasePrice) *
+          parseFloat(newOrderItem.dataValues.quantity)
       await newOrder.update({
         dollarTotal: totalDollars
       })

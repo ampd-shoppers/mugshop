@@ -14,8 +14,6 @@ const Navbar = ({handleClick, isLoggedIn, cart, email, name, admin}) => {
   let numItems = cart.length
   console.log(name)
   return (
-    // <div>
-    //   <h1 className={classNames.navBarH1}>MugShop☕</h1>
     <BSNavbar
       fill="true"
       collapseOnSelect
@@ -62,35 +60,6 @@ const Navbar = ({handleClick, isLoggedIn, cart, email, name, admin}) => {
     // </div>
   )
 }
-
-//  <LinkContainer to="/api/mugs">
-//     <NavItem>Mugs</NavItem>
-//   </LinkContainer>
-
-// const Navbar = ({handleClick, isLoggedIn}) => (
-//   <div>
-//     <h1>MugShop ☕</h1>
-//     <nav>
-//       {isLoggedIn ? (
-//         <div>
-//           {/* The navbar will show these links after you log in */}
-//           <Link to="/home">Home</Link>
-//           <a href="#" onClick={handleClick}>
-//             Logout
-//           </a>
-//         </div>
-//       ) : (
-//         <div>
-//           {/* The navbar will show these links before you log in */}
-//           <Link to="/login">Login</Link>
-//           <Link to="/signup">Sign Up</Link>
-//         </div>
-//       )}
-//     </nav>
-//     <hr />
-//   </div>
-// )
-
 /**
  * CONTAINER
  */
