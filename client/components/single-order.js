@@ -45,7 +45,7 @@ export default class SingleOrder extends Component {
                   <div className={classNames.cartText}>
                     <h4>{order.mug.name}</h4>
                     <h4>Purchased at: ${order && order.purchasePrice}</h4>
-                    <h4>Quantity: *currently null{order && order.quantity}</h4>
+                    <h4>Quantity: {order && order.quantity}</h4>
                   </div>
                   {/* <ListGroup.Item key={order.mugId}>{order.mug.purchasePrice}</ListGroup.Item> */}
                 </ListGroup.Item>
