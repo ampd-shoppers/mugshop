@@ -29,10 +29,10 @@ User.hasMany(Order)
 Review.belongsTo(User)
 User.hasMany(Review)
 
-Mug.belongsToMany(User, {through: CartItem})
-User.belongsToMany(Mug, {through: CartItem})
-CartItem.belongsTo(Mug)
-CartItem.belongsTo(User)
+// Mug.belongsToMany(User, {through: CartItem})
+// User.belongsToMany(Mug, {through: CartItem})
+CartItem.belongsTo(Mug, {constraints: false})
+CartItem.belongsTo(User, {constraints: false})
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
