@@ -78,9 +78,7 @@ export class CartCard extends Component {
         {this.props.item.mug.stock >= this.props.item.quantity ? (
           <span />
         ) : (
-          <span className="alert-text">
-            Only {this.props.item.mug.stock} left!{' '}
-          </span>
+          <span className="alert-text">{this.props.item.mug.stock} left! </span>
         )}
 
         <Button
