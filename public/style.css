@@ -127,3 +127,8 @@ h5 {
   background-color: rgb(37, 172, 172);
   border: none;
 }
+
+.adminData {
+  height: 15vh;
+  background-color: blue;
+}

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Route, RouteHandler, Link} from 'react-router'
-import {logout} from '../store'
+import {logout, clearCart} from '../store'
 import {Button, Nav, NavDropdown, MenuItem, NavItem} from 'react-bootstrap'
 import BSNavbar from 'react-bootstrap/Navbar'
 import {withRouter, Switch} from 'react-router-dom'
@@ -109,6 +109,7 @@ const mapDispatch = dispatch => {
     handleClick() {
       console.log('is called?')
       dispatch(logout())
+      dispatch(clearCart())
     }
   }
 }
