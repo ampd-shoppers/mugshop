@@ -104,10 +104,13 @@ router.get('/user/checkout', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    // console.log(req.sessionID)
+    console.log('session ID', req.sessionID)
+    console.log('user id', req.user.id)
 
     //TODO: userid?
-    const exists = await CartItem.findOne({where: {mugId: req.body.mugId}})
+    const exists = await CartItem.findOne({
+      where: {mugId: req.body.mugId, userId: req.user.id}
+    })
 
     if (!exists) {
       if (req.user) {
@@ -131,7 +134,7 @@ router.post('/', async (req, res, next) => {
       // })
       //TODO: redundant? Can eliminate if eagerloading isnt necessary
       const newCartItem = await CartItem.findOne({
-        where: {mugId: req.body.mugId},
+        where: {mugId: req.body.mugId, userId: req.user.id},
         include: [
           {
             model: Mug
