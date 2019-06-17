@@ -10,7 +10,7 @@ import {LinkContainer} from 'react-router-bootstrap'
 import Routes from '../routes'
 import classNames from '../../public/style.css'
 
-const Navbar = ({handleClick, isLoggedIn, cart, email, name, admin}) => {
+const Navbar = ({handleClick, isLoggedIn, cart, email, name, userLevel}) => {
   let numItems = cart.length
   console.log(name)
   return (
@@ -48,8 +48,8 @@ const Navbar = ({handleClick, isLoggedIn, cart, email, name, admin}) => {
           <LinkContainer onClick={handleClick} to="/login">
             <Nav.Link> Logout </Nav.Link>
           </LinkContainer>
-          {admin &&
-            admin === 'Admin' && (
+          {userLevel &&
+            userLevel === 'Admin' && (
               <LinkContainer to="/admin">
                 <Nav.Link> Admin Page </Nav.Link>
               </LinkContainer>
@@ -69,7 +69,7 @@ const mapState = state => {
     cart: state.cart,
     email: state.user.email,
     name: state.user.firstName,
-    admin: state.user.permissionLevel
+    userLevel: state.user.permissionLevel
   }
 }
 
