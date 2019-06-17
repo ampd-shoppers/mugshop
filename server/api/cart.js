@@ -16,16 +16,36 @@ router.use((req, res, next) => {
 
 //logged in user views their cartItems (forming their cart)
 router.get('/user', async (req, res, next) => {
-  console.log(req.session.cartItems)
   try {
-    const userCart = await CartItem.findAll({
-      where: {userId: req.user.id},
-      include: [
-        {
-          model: Mug
-        }
-      ]
-    })
+    console.log(req.sessionID)
+    if (req.user) {
+      var userCart = await CartItem.findAll({
+        where: {userId: req.user.id},
+        include: [
+          {
+            model: Mug
+          }
+        ]
+      })
+    } else {
+      var userCart = await CartItem.findAll({
+        where: {sessionId: req.sessionID},
+        include: [
+          {
+            model: Mug
+          }
+        ]
+      })
+    }
+
+    // const userCart = await CartItem.findAll({
+    //   where: {userId: req.user.id},
+    //   include: [
+    //     {
+    //       model: Mug
+    //     }
+    //   ]
+    // })
 
     if (userCart) {
       res.json(userCart)
@@ -84,12 +104,32 @@ router.get('/user/checkout', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    // console.log(req.sessionID)
+
+    //TODO: userid?
     const exists = await CartItem.findOne({where: {mugId: req.body.mugId}})
+
     if (!exists) {
+      if (req.user) {
+        const AddCartItem = await CartItem.create({
+          mugId: req.body.mugId,
+          userId: req.user.dataValues.id
+        })
+      } else {
+        const AddCartItem = await CartItem.create({
+          mugId: req.body.mugId,
+          sessionId: req.sessionID
+        })
+      }
+
       const targetMug = await Mug.findByPk(req.body.mugId)
-      const targetUser = await User.findByPk(req.user.dataValues.id)
-      await targetMug.addUser(targetUser)
-      await targetUser.addMug(targetMug)
+      // const targetUser = await User.findByPk(req.user.dataValues.id)
+
+      // const AddCartItem = await CartItem.create({
+      //   mugId: req.body.mugId,
+      //   userId: userId
+      // })
+      //TODO: redundant? Can eliminate if eagerloading isnt necessary
       const newCartItem = await CartItem.findOne({
         where: {mugId: req.body.mugId},
         include: [
