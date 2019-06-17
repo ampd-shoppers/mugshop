@@ -10,7 +10,9 @@ router.use((req, res, next) => {
   // req.session.cartItems = [{productId: 1, quantity: 3}]
   // console.log(req.session)
   // req.session.cartItems = [{productId: 1, quantity: 3}]
-  // console.log(req.user)
+  // console.log('User Level', req.user && req.user.permissionLevel)
+  // req.user.isAdmin=(req.user && req.user.permissionLevel==='Admin')
+
   next()
 })
 
