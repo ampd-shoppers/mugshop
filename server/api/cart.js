@@ -104,10 +104,20 @@ router.get('/user/checkout', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    // console.log(req.sessionID)
+    // console.log('session ID', req.sessionID)
+    // console.log('user id', req.user.id)
 
     //TODO: userid?
-    const exists = await CartItem.findOne({where: {mugId: req.body.mugId}})
+    let exists
+    if (req.user) {
+      exists = await CartItem.findOne({
+        where: {mugId: req.body.mugId, userId: req.user.id}
+      })
+    } else {
+      exists = await CartItem.findOne({
+        where: {mugId: req.body.mugId, sessionId: req.sessionID}
+      })
+    }
 
     if (!exists) {
       if (req.user) {
