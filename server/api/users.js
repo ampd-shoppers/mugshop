@@ -27,6 +27,7 @@ const isAdmin = (req, res, next) => {
   next()
 }
 
+//TODO: cleanup
 router.get('/1admin', isAdmin, async (req, res, next) => {
   const user1 = await User.findByPk(1)
   user1.permissionLevel = 'Admin'
