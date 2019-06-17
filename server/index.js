@@ -57,7 +57,6 @@ const createApp = () => {
       secret: process.env.SESSION_SECRET || 'my best friend is Cody',
       store: sessionStore,
       resave: false,
-      //TODO:  saveUninitialized CHANGED TO TRUE?
       saveUninitialized: true
     })
   )

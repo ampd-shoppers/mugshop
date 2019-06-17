@@ -20,6 +20,11 @@ form div {
   display: inline-block;
 }
 
+.alert-text {
+  color: red;
+  font-weight: bold;
+}
+
 .cardGroupMugs {
   align-items: center;
   justify-content: center;
