@@ -8,6 +8,7 @@ import Pagination from 'react-bootstrap/Pagination'
 
 import {connect} from 'react-redux'
 import {getAllMugs, getAllTags, logout} from '../store'
+import Filter from './filter'
 
 export class AllMugs extends Component {
   componentDidMount() {
@@ -19,9 +20,11 @@ export class AllMugs extends Component {
   componentDidUpdate() {}
 
   render() {
+    // console.log(this.props.mugs[0] && this.props.mugs[4].tags)
     console.log(this.props)
     return (
       <div>
+        <Filter />
         <CardGroup className={classNames.cardGroupMugs}>
           {this.props.mugs &&
             this.props.mugs.map(mug => <AllMugsCard key={mug.id} mug={mug} />)}
@@ -48,7 +51,22 @@ export class AllMugs extends Component {
 }
 
 const mapState = state => {
-  return {mugs: state.mugs}
+  const showType = state.tags.filter(tag => tag.tag === state.filter)
+  // console.log('state.filter: ',state.tags)
+  console.log('Show Type:', showType[0] && showType[0].mugs)
+  // console.log('tagName:', (state.mugs[4] && state.mugs[4].tags[1].tag===state.filter))
+  const filterFunc = function() {
+    if (state.filter === 'Handmade') {
+      console.log('in if statement')
+      return showType[0].mugs
+    }
+    return state.mugs
+  }
+
+  return {
+    mugs: filterFunc()
+  }
+  // return {mugs: state.mugs, filter: state.filter}
 }
 
 const mapDispatch = dispatch => {
