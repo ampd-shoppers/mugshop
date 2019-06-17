@@ -70,8 +70,8 @@ export class CartCard extends Component {
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
-            <option>4</option>
-            <option>5</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
             {/* selected={`${this.value===this.props.item.quantity ? 'selected': ''}`} */}
           </Form.Control>
         </div>

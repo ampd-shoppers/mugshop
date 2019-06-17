@@ -10,6 +10,7 @@ import SingleMug from './components/single-mug'
 import AllOrders from './components/all-orders'
 import SingleOrder from './components/single-order'
 import AdminPage from './components/admin-page'
+import AdminOrders from './components/admin-orders'
 
 /**
  * COMPONENT
@@ -36,9 +37,19 @@ class Routes extends Component {
           render={routeProps => <AllMugs {...routeProps} />}
         />
         <Route exact path="/mugs/:mugId" component={SingleMug} />
-        <Route exact path="/orders" component={AllOrders} />
+        <Route
+          exact
+          path="/orders"
+          render={routeProps => <AllOrders {...routeProps} from="user" />}
+        />
         <Route path="/orders/:orderId" component={SingleOrder} />
-        {isAdmin && <Route exact path="/admin" component={AdminPage} />}
+        {isAdmin && (
+          <Switch>
+            <Route exact path="/admin" component={AdminPage} />
+            <Route exact path="/admin/orders/all" component={AdminOrders} />
+          </Switch>
+        )}
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
