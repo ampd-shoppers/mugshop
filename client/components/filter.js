@@ -25,6 +25,9 @@ export class Filter extends Component {
         <Button onClick={() => this.props.visibilityFilter('Handmade')}>
           Type Handmade
         </Button>
+        <Button onClick={() => this.props.visibilityFilter('Show All')}>
+          Show All
+        </Button>
       </div>
     )
   }
