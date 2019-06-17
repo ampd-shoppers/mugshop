@@ -8,7 +8,12 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'name', 'currentPrice', 'imgSRC']
+      attributes: ['id', 'name', 'currentPrice', 'imgSRC'],
+      include: [
+        {
+          model: Tag
+        }
+      ]
     })
     res.json(mugs)
   } catch (err) {
@@ -38,7 +43,12 @@ router.get('/page/:page', async (req, res, next) => {
       attributes: ['id', 'name', 'currentPrice', 'imgSRC'],
       limit: limit,
       offset: offset,
-      $sort: {id: 1}
+      $sort: {id: 1},
+      include: [
+        {
+          model: Tag
+        }
+      ]
     })
     res.json(mugs)
   } catch (error) {

@@ -10,50 +10,50 @@ import {LinkContainer} from 'react-router-bootstrap'
 import Routes from '../routes'
 import classNames from '../../public/style.css'
 
-const Navbar = ({handleClick, isLoggedIn, cart}) => {
+const Navbar = ({handleClick, isLoggedIn, cart, email, name}) => {
   let numItems = cart.length
-  console.log(numItems)
+  console.log(name)
   return (
-    <div>
-      <h1 className={classNames.navBarH1}>MugShop☕</h1>
-      <BSNavbar
-        fill="true"
-        collapseOnSelect
-        expand="lg"
-        bg="light"
-        variant="light"
-        sticky="top"
-        className={classNames.NavBarStyle}
-      >
-        <div>
-          <LinkContainer to="/home">
-            <BSNavbar.Brand>Home</BSNavbar.Brand>
+    // <div>
+    //   <h1 className={classNames.navBarH1}>MugShop☕</h1>
+    <BSNavbar
+      fill="true"
+      collapseOnSelect
+      expand="lg"
+      bg="light"
+      variant="light"
+      sticky="top"
+      className={classNames.NavBarStyle}
+      style={{position: 'sticky'}}
+    >
+      <BSNavbar.Brand>
+        {email && <span>Welcome, {name} !</span>}{' '}
+        {!email && <span>Welcome Guest!</span>}
+      </BSNavbar.Brand>
+      <Nav className="justify-content-end">
+        <LinkContainer to="/mugs/page/1">
+          <Nav.Link>Mugs</Nav.Link>
+        </LinkContainer>
+        <LinkContainer to="/cart">
+          <Nav.Link>Cart ({numItems})</Nav.Link>
+        </LinkContainer>
+        <LinkContainer to="/orders">
+          <Nav.Link> Orders </Nav.Link>
+        </LinkContainer>
+        <NavDropdown title="Profile" id="basic-nav-dropdown">
+          <LinkContainer to="/signup">
+            <Nav.Link> Sign Up </Nav.Link>
           </LinkContainer>
-        </div>
-        <div className={classNames.LinkNavBarDiv}>
-          <Nav className="mr-auto">
-            <LinkContainer to="/mugs/page/1">
-              <Nav.Link>Mugs</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/cart">
-              <Nav.Link>Cart ({numItems})</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/orders">
-              <Nav.Link> Orders </Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/signup">
-              <Nav.Link> Sign Up </Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/login">
-              <Nav.Link> Login </Nav.Link>
-            </LinkContainer>
-            <LinkContainer onClick={handleClick} to="/login">
-              <Nav.Link> Logout </Nav.Link>
-            </LinkContainer>
-          </Nav>
-        </div>
-      </BSNavbar>
-    </div>
+          <LinkContainer to="/login">
+            <Nav.Link> Login </Nav.Link>
+          </LinkContainer>
+          <LinkContainer onClick={handleClick} to="/login">
+            <Nav.Link> Logout </Nav.Link>
+          </LinkContainer>
+        </NavDropdown>
+      </Nav>
+    </BSNavbar>
+    // </div>
   )
 }
 
@@ -91,7 +91,9 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    cart: state.cart
+    cart: state.cart,
+    email: state.user.email,
+    name: state.user.firstName
   }
 }
 
