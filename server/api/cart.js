@@ -72,6 +72,19 @@ router.get('/user/checkout', async (req, res, next) => {
       ]
     })
 
+    for (let i = 0; i < userCart.length; i++) {
+      let currentStock = userCart[i].mug.dataValues.stock
+      // console.log()
+      if (currentStock - userCart[i].quantity < 0) {
+        return res.send(
+          `There are only ${currentStock} ${
+            userCart[i].mug.dataValues.name
+          } mugs left!`
+        )
+        // res.send(`There are only ${currentStock} ${userCart[i].mug.dataValues.name} mugs left!`)
+      }
+    }
+
     const newOrder = await Order.create({
       userId: req.user.id,
       dollarTotal: 0

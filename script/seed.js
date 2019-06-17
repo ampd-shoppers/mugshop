@@ -62,7 +62,7 @@ async function seed() {
     let mug = await Mug.create({
       name: `${adj1} ${adj2} ${colorFormat} Mug`,
       currentPrice: Faker.finance.amount(0, 20, 2),
-      stock: Faker.random.number(1000),
+      stock: Faker.random.number(5),
       imgSRC: `/public/imgs/mugs/mug${i % 21}-min.jpeg`
     })
 
