@@ -2,13 +2,14 @@ import {connect} from 'react-redux'
 import React, {Component} from 'react'
 import {Form, Col, Row, Button} from 'react-bootstrap'
 import {updateUser} from '../store'
+import {Route, Redirect, withRouter} from 'react-router'
 
 export class AdminMugsCard extends Component {
   constructor() {
     super()
     this.state = {}
     // this.handleChange = this.handleChange.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   // componentDidMount() {
   //   this.setState({
@@ -29,13 +30,17 @@ export class AdminMugsCard extends Component {
   //     console.log(error)
   //   }
   // }
-  // handleSubmit(event) {
-  //   try {
-
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  handleSubmit(event) {
+    try {
+      console.log('this.props handleSubmit', this.props)
+      this.props.history.push({
+        pathname: '/admin/mugs/update',
+        state: {mug: this.props.mug}
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   render() {
     const {mug} = this.props
@@ -116,4 +121,4 @@ const mapDispatch = dispatch => {
     //   dispatch(updateUser(userId, permissionLevel))
   }
 }
-export default connect(null, mapDispatch)(AdminMugsCard)
+export default withRouter(connect(null, mapDispatch)(AdminMugsCard))

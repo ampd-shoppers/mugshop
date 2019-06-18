@@ -111,6 +111,43 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.put('/:mugId', async (req, res, next) => {
+  try {
+    if (req.isAdmin) {
+      console.log('req.body', req.body)
+      const name = req.body.name
+      const currentPrice = parseFloat(req.body.currentPrice)
+      const stock = parseInt(req.body.stock, 10)
+      const imgSRC = req.body.imgSRC
+      // let submittedMug =
+      //   req.body.imgSRC === ''
+      //     ? {name, currentPrice, stock}
+      //     : {name, currentPrice, stock, imgSRC}
+      // console.log(submittedMug)
+      let updatedMug = await Mug.update(
+        {
+          name: name,
+          currentPrice: currentPrice,
+          stock: stock,
+          imgSRC: imgSRC
+        },
+        {
+          where: {id: req.params.mugId},
+          returning: true
+        }
+      )
+      console.log(updatedMug)
+      res.json(updatedMug)
+    } else {
+      res.send(
+        'You are not an Admin. Please log in or contact support if this is not correct'
+      )
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
 //   const mugs = await Mug.findAll({
 //       attributes: ['id', 'name', 'currentPrice', 'imgSRC'],
 //       limit: limit,

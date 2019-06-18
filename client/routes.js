@@ -56,6 +56,7 @@ class Routes extends Component {
             <Route exact path="/admin/users/all" component={AdminUsers} />
             <Route exact path="/admin/mugs/all" component={AdminMugs} />
             <Route exact path="/admin/mugs/new" component={AdminMugForm} />
+            <Route exact path="/admin/mugs/update" component={AdminMugForm} />
           </Switch>
         )}
 
