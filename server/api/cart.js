@@ -108,6 +108,17 @@ router.get('/user/checkout', async (req, res, next) => {
         dollarTotal: totalDollars
       })
 
+      // console.log('mug: ', mug[i])
+      console.log('is this rendering? ', userCart[i].mug.dataValues.stock)
+      console.log('quantity: ', userCart[i].dataValues.quantity)
+      //update mug stock
+      let updatedStock =
+        parseFloat(userCart[i].mug.dataValues.stock) -
+        parseFloat(newOrderItem.quantity)
+      await userCart[i].mug.update({
+        stock: updatedStock
+      })
+
       //delete cartItem
       await userCart[i].destroy()
     }
