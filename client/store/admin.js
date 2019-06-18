@@ -24,6 +24,23 @@ export const adminAllOrders = () => async dispatch => {
   }
 }
 
+export const UPDATE_ORDER_PROGRESS = 'UPDATE_ORDER_PROGRESS'
+
+export const updateOrderProgress = updatedOrder => ({
+  type: UPDATE_ORDER_PROGRESS,
+  updatedOrder
+})
+export const updateOrder = (orderId, progress) => async dispatch => {
+  try {
+    let res = await Axios.put(`/api/orders/${orderId}`, {progress})
+    let updatedOrder = res.data[1][0]
+    console.log(updatedOrder)
+    dispatch(updateOrderProgress(updatedOrder))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_ADMIN_ORDERS:
@@ -31,7 +48,17 @@ export default function(state = initialState, action) {
         ...state,
         orders: action.orders
       }
-
+    case UPDATE_ORDER_PROGRESS:
+      return {
+        ...state,
+        orders: state.orders.map(order => {
+          if (order.id === action.updatedOrder.id) {
+            return action.updatedOrder
+          } else {
+            return order
+          }
+        })
+      }
     default:
       return state
   }
