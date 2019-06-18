@@ -5,7 +5,8 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const userOrders = await Order.findAll({
-      where: {userId: req.user.id}
+      where: {userId: req.user.id},
+      order: [['id', 'ASC']]
     })
     res.json(userOrders)
   } catch (err) {
@@ -15,7 +16,9 @@ router.get('/', async (req, res, next) => {
 router.get('/all', async (req, res, next) => {
   try {
     if (req.isAdmin) {
-      let allOrders = await Order.findAll()
+      let allOrders = await Order.findAll({
+        order: [['id', 'ASC']]
+      })
       res.json(allOrders)
     } else {
       res.send(
@@ -61,6 +64,27 @@ router.get('/:orderId', async (req, res, next) => {
       res.json(orderId)
     } else {
       res.send('order not found')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:orderId', async (req, res, next) => {
+  try {
+    if (req.isAdmin) {
+      let updatedOrder = await Order.update(
+        {progress: req.body.progress},
+        {
+          where: {id: req.params.orderId},
+          returning: true
+        }
+      )
+      res.json(updatedOrder)
+    } else {
+      res.send(
+        'You are not an Admin. Please log in or contact support if this is not correct'
+      )
     }
   } catch (err) {
     next(err)
