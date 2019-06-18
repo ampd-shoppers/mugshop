@@ -52,15 +52,19 @@ export class AllMugs extends Component {
 
 const mapState = state => {
   const showType = state.tags.filter(tag => tag.tag === state.filter)
+  console.log('mapstate all mugs', state.filter)
   // console.log('state.filter: ',state.tags)
+  console.log('Show')
   console.log('Show Type:', showType[0] && showType[0].mugs)
   // console.log('tagName:', (state.mugs[4] && state.mugs[4].tags[1].tag===state.filter))
+  console.log(state)
+  console.log(state.filter === 'Show All')
   const filterFunc = function() {
-    if (state.filter === 'Handmade') {
+    if (state.filter === 'Show All') {
       console.log('in if statement')
-      return showType[0].mugs
+      return state.mugs
     }
-    return state.mugs
+    return showType[0].mugs
   }
 
   return {
