@@ -9,6 +9,7 @@ router.get('/', async (req, res, next) => {
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ['id', 'name', 'currentPrice', 'imgSRC'],
+      order: [['id', 'DESC']],
       include: [
         {
           model: Tag
@@ -16,6 +17,27 @@ router.get('/', async (req, res, next) => {
       ]
     })
     res.json(mugs)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/all', async (req, res, next) => {
+  try {
+    if (req.isAdmin) {
+      const mugs = await Mug.findAll({
+        include: [
+          {
+            model: Tag
+          }
+        ]
+      })
+      res.json(mugs)
+    } else {
+      res.send(
+        'You are not an Admin. Please log in or contact support if this is not correct'
+      )
+    }
   } catch (err) {
     next(err)
   }
@@ -41,6 +63,7 @@ router.get('/page/:page', async (req, res, next) => {
   try {
     const mugs = await Mug.findAll({
       attributes: ['id', 'name', 'currentPrice', 'imgSRC'],
+      order: [['id', 'DESC']],
       limit: limit,
       offset: offset,
       $sort: {id: 1},
@@ -53,6 +76,38 @@ router.get('/page/:page', async (req, res, next) => {
     res.json(mugs)
   } catch (error) {
     next(error)
+  }
+})
+
+router.post('/', async (req, res, next) => {
+  try {
+    if (req.isAdmin) {
+      console.log('req.body', req.body)
+      const name = req.body.name
+      const currentPrice = parseFloat(req.body.currentPrice)
+      const stock = parseInt(req.body.stock, 10)
+      const imgSRC = req.body.imgSRC
+      let submittedMug =
+        req.body.imgSRC === ''
+          ? {name, currentPrice, stock}
+          : {name, currentPrice, stock, imgSRC}
+      console.log(submittedMug)
+      let newMug = await Mug.create(submittedMug, {
+        include: [
+          {
+            model: Tag
+          }
+        ]
+      })
+      console.log(newMug)
+      res.json(newMug)
+    } else {
+      res.send(
+        'You are not an Admin. Please log in or contact support if this is not correct'
+      )
+    }
+  } catch (err) {
+    next(err)
   }
 })
 
