@@ -23,7 +23,6 @@ export class AdminMugForm extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log(this.state)
   }
   async handleSubmit(event) {
     event.preventDefault()
@@ -55,7 +54,6 @@ export class AdminMugForm extends Component {
 
   componentDidMount() {
     if (this.props.location.state) {
-      console.log('hi from if')
       const {mug} = this.props.location.state
 
       this.setState({
@@ -68,7 +66,6 @@ export class AdminMugForm extends Component {
     }
   }
   render() {
-    console.log('this.state: ', this.state)
     return (
       <div style={{justifyContent: 'center', display: 'flex'}}>
         <Form

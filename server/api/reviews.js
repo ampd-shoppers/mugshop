@@ -42,7 +42,6 @@ router.post('/', async (req, res, next) => {
 router.put('/:reviewId', async (req, res, next) => {
   try {
     const review = await Review.findByPk(req.params.reviewId)
-    console.log(req.params.reviewId)
     const updatedReview = await review.update(req.body)
     res.json(updatedReview)
   } catch (err) {

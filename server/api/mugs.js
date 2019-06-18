@@ -26,6 +26,7 @@ router.get('/all', async (req, res, next) => {
   try {
     if (req.isAdmin) {
       const mugs = await Mug.findAll({
+        order: [['id', 'DESC']],
         include: [
           {
             model: Tag
@@ -114,7 +115,7 @@ router.post('/', async (req, res, next) => {
 router.put('/:mugId', async (req, res, next) => {
   try {
     if (req.isAdmin) {
-      console.log('req.body', req.body)
+      // console.log('req.body', req.body)
       const name = req.body.name
       const currentPrice = parseFloat(req.body.currentPrice)
       const stock = parseInt(req.body.stock, 10)
@@ -136,7 +137,7 @@ router.put('/:mugId', async (req, res, next) => {
           returning: true
         }
       )
-      console.log(updatedMug)
+      // console.log(updatedMug)
       res.json(updatedMug)
     } else {
       res.send(

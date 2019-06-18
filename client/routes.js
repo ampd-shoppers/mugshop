@@ -23,8 +23,6 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
     this.props.fetchCart()
-    // this.props.fetchAllMugs()
-    // this.props.fetchAllTags()
   }
 
   render() {
@@ -94,8 +92,6 @@ const mapDispatch = dispatch => {
       dispatch(me())
     },
     fetchCart: () => dispatch(getCart())
-    // fetchAllMugs: () => dispatch(getAllMugs()),
-    // fetchAllTags: () => dispatch(getAllTags())
   }
 }
 

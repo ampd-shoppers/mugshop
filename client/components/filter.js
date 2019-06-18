@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {removeCartItem, updateMug, setFilter} from '../store'
+import {setFilter} from '../store'
 import classNames from '../../public/style.css'
-import {Dropdown, Button, Form} from 'react-bootstrap'
+import {Form} from 'react-bootstrap'
 
 export class Filter extends Component {
   constructor() {
