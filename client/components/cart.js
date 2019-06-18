@@ -3,6 +3,8 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
 import {Col, Row} from 'react-bootstrap'
+import {Elements, StripeProvider} from 'react-stripe-elements'
+import CheckoutForm from './CheckoutForm'
 
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Axios from 'axios'
@@ -17,6 +19,8 @@ export class Cart extends Component {
   constructor() {
     super()
     this.total = this.total.bind(this)
+    this.state = {toggleStripe: false}
+    this.handleClick = this.handleClick.bind(this)
   }
   async componentDidMount() {
     await this.props.fetchCart()
@@ -29,6 +33,13 @@ export class Cart extends Component {
     }, 0)
   }
 
+  handleClick() {
+    console.log('handle clicked??')
+    this.setState(state => ({
+      toggleStripe: !state.toggleStripe
+    }))
+  }
+
   render() {
     console.log(this.props.cart)
     return (
@@ -39,7 +50,8 @@ export class Cart extends Component {
             <h4>Cart Total: ${this.total().toFixed(2)}</h4>
             <Button
               disabled={!this.props.cart[0]}
-              onClick={() => this.props.checkout()}
+              onClick={() => this.handleClick()}
+              // onClick={() => this.props.checkout()}
             >
               Checkout
             </Button>
@@ -51,6 +63,17 @@ export class Cart extends Component {
               <CartCard key={item.mugId} item={item} />
             ))}
         </ListGroup>
+        {this.state.toggleStripe ? (
+          <StripeProvider apiKey="pk_test_PxDiT4TDQL5PHvFhZPumL8fM00SuSW09RX">
+            <div>
+              <Elements>
+                <CheckoutForm checkoutProp={this.props.checkout} />
+              </Elements>
+            </div>
+          </StripeProvider>
+        ) : (
+          <div />
+        )}
       </div>
     )
   }
