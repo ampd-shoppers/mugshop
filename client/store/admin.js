@@ -60,16 +60,16 @@ export const adminAllUsers = () => async dispatch => {
 
 export const UPDATE_USER_LEVEL = 'UPDATE_USER_LEVEL'
 
-export const updateUserLevel = updatedOrder => ({
+export const updateUserLevel = updatedUser => ({
   type: UPDATE_USER_LEVEL,
-  updatedOrder
+  updatedUser
 })
 export const updateUser = (userId, permissionLevel) => async dispatch => {
   try {
     let res = await Axios.put(`/api/users/${userId}`, {permissionLevel})
     let updatedUser = res.data[1][0]
-    console.log(updatedUser)
-    // dispatch(updateOrderProgress(updatedOrder))
+    // console.log(updatedUser)
+    dispatch(updateUserLevel(updatedUser))
   } catch (err) {
     console.error(err)
   }
@@ -97,6 +97,17 @@ export default function(state = initialState, action) {
       return {
         ...state,
         users: action.users
+      }
+    case UPDATE_USER_LEVEL:
+      return {
+        ...state,
+        users: state.users.map(user => {
+          if (user.id === action.updatedUser.id) {
+            return action.updatedUser
+          } else {
+            return user
+          }
+        })
       }
     default:
       return state

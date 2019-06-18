@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Form} from 'react-bootstrap'
+import {updateUser} from '../store'
 
 export class AdminUsersCard extends Component {
   constructor() {
@@ -15,7 +16,7 @@ export class AdminUsersCard extends Component {
       console.log(userId, permissionLevel)
       //ADD TO REDUCER
       //ADD CONNECT AND MAP DISPATCH
-      this.props.updateUser(userId, permissionLevel)
+      this.props.fetchUpdatedUser(userId, permissionLevel)
       // console.log(res.data)
     } catch (error) {
       console.log(error)
@@ -39,12 +40,16 @@ export class AdminUsersCard extends Component {
           >
             <option value="Admin">Admin</option>
             <option value="User">User</option>
-            <option value="Guest">Guest</option>
           </Form.Control>
         </td>
       </tr>
     )
   }
 }
-
-export default AdminUsersCard
+const mapDispatch = dispatch => {
+  return {
+    fetchUpdatedUser: (userId, permissionLevel) =>
+      dispatch(updateUser(userId, permissionLevel))
+  }
+}
+export default connect(null, mapDispatch)(AdminUsersCard)

@@ -83,7 +83,7 @@ router.put('/:userId', async (req, res, next) => {
   try {
     if (req.isAdmin) {
       let updatedUser = await User.update(
-        {progress: req.body.permissionLevel},
+        {permissionLevel: req.body.permissionLevel},
         {
           where: {id: req.params.userId},
           returning: true
