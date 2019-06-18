@@ -12,6 +12,7 @@ import SingleOrder from './components/single-order'
 import AdminPage from './components/admin-page'
 import AdminOrders from './components/admin-orders'
 import AdminUsers from './components/admin-users'
+import CheckoutForm from './components/CheckoutForm'
 
 /**
  * COMPONENT
@@ -31,6 +32,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/cart" component={Cart} />
+
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route

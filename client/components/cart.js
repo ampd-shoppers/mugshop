@@ -3,6 +3,8 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
 import {Col, Row} from 'react-bootstrap'
+import {Elements, StripeProvider} from 'react-stripe-elements'
+import CheckoutForm from './CheckoutForm'
 
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Axios from 'axios'
@@ -51,6 +53,14 @@ export class Cart extends Component {
               <CartCard key={item.mugId} item={item} />
             ))}
         </ListGroup>
+
+        <StripeProvider apiKey="pk_test_PxDiT4TDQL5PHvFhZPumL8fM00SuSW09RX">
+          <div>
+            <Elements>
+              <CheckoutForm />
+            </Elements>
+          </div>
+        </StripeProvider>
       </div>
     )
   }
