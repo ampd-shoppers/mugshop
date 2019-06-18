@@ -4,7 +4,7 @@ import history from '../history'
 const initialState = {
   orders: [],
   users: [],
-  products: []
+  mugs: []
 }
 
 export const SET_ADMIN_ORDERS = 'SET_ADMIN_ORDERS'
@@ -75,6 +75,23 @@ export const updateUser = (userId, permissionLevel) => async dispatch => {
   }
 }
 
+export const SET_ADMIN_MUGS = 'SET_ADMIN_MUGS'
+
+export const setAdminMugs = mugs => ({
+  type: SET_ADMIN_MUGS,
+  mugs
+})
+
+export const adminAllMugs = () => async dispatch => {
+  try {
+    let response = await Axios.get('api/mugs/all')
+    let allMugs = response.data
+    dispatch(setAdminMugs(allMugs))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_ADMIN_ORDERS:
@@ -108,6 +125,11 @@ export default function(state = initialState, action) {
             return user
           }
         })
+      }
+    case SET_ADMIN_MUGS:
+      return {
+        ...state,
+        mugs: action.mugs
       }
     default:
       return state

@@ -12,6 +12,8 @@ import SingleOrder from './components/single-order'
 import AdminPage from './components/admin-page'
 import AdminOrders from './components/admin-orders'
 import AdminUsers from './components/admin-users'
+import AdminMugs from './components/admin-mugs'
+import AdminMugForm from './components/admin-mug-form'
 import CheckoutForm from './components/CheckoutForm'
 
 /**
@@ -48,16 +50,22 @@ class Routes extends Component {
         <Route path="/orders/:orderId" component={SingleOrder} />
         {isAdmin && (
           <Switch>
+            <Route exact path="/home" component={AdminPage} />
             <Route exact path="/admin" component={AdminPage} />
             <Route exact path="/admin/orders/all" component={AdminOrders} />
             <Route exact path="/admin/users/all" component={AdminUsers} />
+            <Route exact path="/admin/mugs/all" component={AdminMugs} />
+            <Route exact path="/admin/mugs/new" component={AdminMugForm} />
           </Switch>
         )}
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route exact path="/home" component={UserHome} />
+            <Route
+              path="/home"
+              render={routeProps => <AllMugs {...routeProps} />}
+            />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

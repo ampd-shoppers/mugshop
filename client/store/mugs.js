@@ -39,6 +39,16 @@ export const getAllMugs = (page = 1) => async dispatch => {
   }
 }
 
+// export const addNewMug = (mug) => async dispatch => {
+//   try {
+//     console.log('hi add New Mug in store')
+//     let response = await Axios.post('/api/mugs', mug)
+//     console.log(response)
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
+
 /**
  * REDUCER
  */

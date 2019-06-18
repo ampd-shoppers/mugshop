@@ -19,8 +19,8 @@ const Mug = db.define('mug', {
     }
   },
   imgSRC: {
-    type: Sequelize.STRING
-    //TODO: ADD DEFAULT IMAGE
+    type: Sequelize.STRING,
+    defaultValue: '/public/imgs/default-mug.jpg'
   }
 })
 
