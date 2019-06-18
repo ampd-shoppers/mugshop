@@ -54,7 +54,8 @@ export class AdminMugForm extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.state.mug) {
+    // console.log('this.props', this.props)
+    if (this.props.location.state) {
       console.log('hi from if')
       const {mug} = this.props.location.state
 
