@@ -41,6 +41,40 @@ export const updateOrder = (orderId, progress) => async dispatch => {
   }
 }
 
+export const SET_ALL_USERS = 'SET_ALL_USERS'
+
+export const setAllUsers = users => ({
+  type: SET_ALL_USERS,
+  users
+})
+
+export const adminAllUsers = () => async dispatch => {
+  try {
+    let response = await Axios.get('api/users/all')
+    let allUsers = response.data
+    dispatch(setAllUsers(allUsers))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const UPDATE_USER_LEVEL = 'UPDATE_USER_LEVEL'
+
+export const updateUserLevel = updatedUser => ({
+  type: UPDATE_USER_LEVEL,
+  updatedUser
+})
+export const updateUser = (userId, permissionLevel) => async dispatch => {
+  try {
+    let res = await Axios.put(`/api/users/${userId}`, {permissionLevel})
+    let updatedUser = res.data[1][0]
+    // console.log(updatedUser)
+    dispatch(updateUserLevel(updatedUser))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_ADMIN_ORDERS:
@@ -56,6 +90,22 @@ export default function(state = initialState, action) {
             return action.updatedOrder
           } else {
             return order
+          }
+        })
+      }
+    case SET_ALL_USERS:
+      return {
+        ...state,
+        users: action.users
+      }
+    case UPDATE_USER_LEVEL:
+      return {
+        ...state,
+        users: state.users.map(user => {
+          if (user.id === action.updatedUser.id) {
+            return action.updatedUser
+          } else {
+            return user
           }
         })
       }

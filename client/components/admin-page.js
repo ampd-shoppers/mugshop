@@ -3,7 +3,7 @@ import {Button, Card, Nav, ListGroup} from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 import classNames from '../../public/style.css'
 import Axios from 'axios'
-import {adminAllOrders} from '../store'
+import {adminAllOrders, adminAllUsers} from '../store'
 import {connect} from 'react-redux'
 
 export class AdminPage extends Component {
@@ -17,6 +17,7 @@ export class AdminPage extends Component {
   }
   async componentDidMount() {
     this.props.fetchAdminOrders()
+    this.props.fetchAdminUsers()
     let allOrders = await Axios.get('api/orders/all')
     let allUsers = await Axios.get('api/users/all')
     let allMugs = await Axios.get('api/mugs/')
@@ -87,8 +88,9 @@ export class AdminPage extends Component {
                 <ListGroup.Item>
                   <h5>Users</h5>
                 </ListGroup.Item>
-                <ListGroup.Item>Edit Single User</ListGroup.Item>
-                <ListGroup.Item>View All Users</ListGroup.Item>
+                <LinkContainer to="/admin/users/all">
+                  <Nav.Link>View All Users</Nav.Link>
+                </LinkContainer>
               </ListGroup>
             </div>
             <div className="col-sm">
@@ -109,7 +111,8 @@ export class AdminPage extends Component {
 
 const mapDispatch = dispatch => {
   return {
-    fetchAdminOrders: id => dispatch(adminAllOrders(id))
+    fetchAdminOrders: id => dispatch(adminAllOrders(id)),
+    fetchAdminUsers: () => dispatch(adminAllUsers())
   }
 }
 

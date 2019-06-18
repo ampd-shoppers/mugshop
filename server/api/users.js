@@ -26,6 +26,22 @@ const isAdmin = (req, res, next) => {
   }
   next()
 }
+router.get('/all', async (req, res, next) => {
+  try {
+    if (req.isAdmin) {
+      let allUsers = await User.findAll({
+        order: [['id', 'ASC']]
+      })
+      res.json(allUsers)
+    } else {
+      res.send(
+        'You are not an Admin. Please log in or contact support if this is not correct'
+      )
+    }
+  } catch (err) {
+    next(err)
+  }
+})
 
 router.get('/all', async (req, res, next) => {
   try {
@@ -57,6 +73,27 @@ router.get('/:userId', async (req, res, next) => {
       res.json(userId)
     } else {
       res.send('user not found')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:userId', async (req, res, next) => {
+  try {
+    if (req.isAdmin) {
+      let updatedUser = await User.update(
+        {permissionLevel: req.body.permissionLevel},
+        {
+          where: {id: req.params.userId},
+          returning: true
+        }
+      )
+      res.json(updatedUser)
+    } else {
+      res.send(
+        'You are not an Admin. Please log in or contact support if this is not correct'
+      )
     }
   } catch (err) {
     next(err)

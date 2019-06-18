@@ -11,6 +11,7 @@ import AllOrders from './components/all-orders'
 import SingleOrder from './components/single-order'
 import AdminPage from './components/admin-page'
 import AdminOrders from './components/admin-orders'
+import AdminUsers from './components/admin-users'
 
 /**
  * COMPONENT
@@ -47,6 +48,7 @@ class Routes extends Component {
           <Switch>
             <Route exact path="/admin" component={AdminPage} />
             <Route exact path="/admin/orders/all" component={AdminOrders} />
+            <Route exact path="/admin/users/all" component={AdminUsers} />
           </Switch>
         )}
 

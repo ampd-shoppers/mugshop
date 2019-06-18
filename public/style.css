@@ -152,3 +152,14 @@ h5 {
   border: 1px solid black;
   padding: 0 1.5rem 1.5rem 1.5rem;
 }
+
+.adminUserDiv {
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  padding: 1rem;
+}
+
+.adminUserTable {
+  width: 75vw;
+}
