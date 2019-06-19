@@ -23,7 +23,7 @@ Order.belongsToMany(Mug, {through: OrderItem})
 OrderItem.belongsTo(Order)
 OrderItem.belongsTo(Mug)
 
-Order.belongsTo(User)
+Order.belongsTo(User, {constraints: false})
 User.hasMany(Order)
 
 Review.belongsTo(User)

@@ -63,64 +63,126 @@ router.get('/user', async (req, res, next) => {
 router.get('/user/checkout', async (req, res, next) => {
   try {
     //users current cart
-    const userCart = await CartItem.findAll({
-      where: {userId: req.user.id},
-      include: [
-        {
-          model: Mug
+    if (req.user) {
+      const userCart = await CartItem.findAll({
+        where: {userId: req.user.id},
+        include: [
+          {
+            model: Mug
+          }
+        ]
+      })
+
+      for (let i = 0; i < userCart.length; i++) {
+        let currentStock = userCart[i].mug.dataValues.stock
+        // console.log()
+        if (currentStock - userCart[i].quantity < 0) {
+          return res.send(
+            `There are only ${currentStock} ${
+              userCart[i].mug.dataValues.name
+            } mugs left!`
+          )
+          // res.send(`There are only ${currentStock} ${userCart[i].mug.dataValues.name} mugs left!`)
         }
-      ]
-    })
-
-    for (let i = 0; i < userCart.length; i++) {
-      let currentStock = userCart[i].mug.dataValues.stock
-      // console.log()
-      if (currentStock - userCart[i].quantity < 0) {
-        return res.send(
-          `There are only ${currentStock} ${
-            userCart[i].mug.dataValues.name
-          } mugs left!`
-        )
-        // res.send(`There are only ${currentStock} ${userCart[i].mug.dataValues.name} mugs left!`)
       }
-    }
 
-    const newOrder = await Order.create({
-      userId: req.user.id,
-      dollarTotal: 0
-    })
-
-    for (let i = 0; i < userCart.length; i++) {
-      //create orderItems from cartItems & associates them with newOrder
-      let newOrderItem = await OrderItem.create({
-        quantity: userCart[i].dataValues.quantity,
-        purchasePrice: userCart[i].mug.dataValues.currentPrice,
-        mugId: userCart[i].mug.dataValues.id,
-        orderId: newOrder.dataValues.id
+      var newOrder = await Order.create({
+        userId: req.user.id,
+        dollarTotal: 0
       })
 
-      //update Order dollar Total
-      let totalDollars =
-        parseFloat(newOrder.dataValues.dollarTotal) +
-        parseFloat(newOrderItem.dataValues.purchasePrice) *
-          parseFloat(newOrderItem.dataValues.quantity)
-      await newOrder.update({
-        dollarTotal: totalDollars
+      for (let i = 0; i < userCart.length; i++) {
+        //create orderItems from cartItems & associates them with newOrder
+        let newOrderItem = await OrderItem.create({
+          quantity: userCart[i].dataValues.quantity,
+          purchasePrice: userCart[i].mug.dataValues.currentPrice,
+          mugId: userCart[i].mug.dataValues.id,
+          orderId: newOrder.dataValues.id
+        })
+
+        //update Order dollar Total
+        let totalDollars =
+          parseFloat(newOrder.dataValues.dollarTotal) +
+          parseFloat(newOrderItem.dataValues.purchasePrice) *
+            parseFloat(newOrderItem.dataValues.quantity)
+        await newOrder.update({
+          dollarTotal: totalDollars
+        })
+
+        // console.log('mug: ', mug[i])
+        console.log('is this rendering? ', userCart[i].mug.dataValues.stock)
+        console.log('quantity: ', userCart[i].dataValues.quantity)
+        //update mug stock
+        let updatedStock =
+          parseFloat(userCart[i].mug.dataValues.stock) -
+          parseFloat(newOrderItem.quantity)
+        await userCart[i].mug.update({
+          stock: updatedStock
+        })
+
+        //delete cartItem
+        await userCart[i].destroy()
+      }
+    } else {
+      const userCart = await CartItem.findAll({
+        where: {sessionId: req.sessionID},
+        include: [
+          {
+            model: Mug
+          }
+        ]
       })
 
-      // console.log('mug: ', mug[i])
-      // console.log('is this rendering? ', userCart[i].mug.dataValues.stock)
-      // console.log('quantity: ', userCart[i].dataValues.quantity)
-      //update mug stock
-      let updatedStock =
-        parseFloat(userCart[i].mug.dataValues.stock) -
-        parseFloat(newOrderItem.quantity)
-      await userCart[i].mug.update({
-        stock: updatedStock
+      for (let i = 0; i < userCart.length; i++) {
+        let currentStock = userCart[i].mug.dataValues.stock
+        // console.log()
+        if (currentStock - userCart[i].quantity < 0) {
+          return res.send(
+            `There are only ${currentStock} ${
+              userCart[i].mug.dataValues.name
+            } mugs left!`
+          )
+          // res.send(`There are only ${currentStock} ${userCart[i].mug.dataValues.name} mugs left!`)
+        }
+      }
+
+      var newOrder = await Order.create({
+        sessionId: req.sessionID,
+        dollarTotal: 0
       })
 
-      //delete cartItem
-      await userCart[i].destroy()
+      for (let i = 0; i < userCart.length; i++) {
+        //create orderItems from cartItems & associates them with newOrder
+        let newOrderItem = await OrderItem.create({
+          quantity: userCart[i].dataValues.quantity,
+          purchasePrice: userCart[i].mug.dataValues.currentPrice,
+          mugId: userCart[i].mug.dataValues.id,
+          orderId: newOrder.dataValues.id
+        })
+
+        //update Order dollar Total
+        let totalDollars =
+          parseFloat(newOrder.dataValues.dollarTotal) +
+          parseFloat(newOrderItem.dataValues.purchasePrice) *
+            parseFloat(newOrderItem.dataValues.quantity)
+        await newOrder.update({
+          dollarTotal: totalDollars
+        })
+
+        // console.log('mug: ', mug[i])
+        console.log('is this rendering? ', userCart[i].mug.dataValues.stock)
+        console.log('quantity: ', userCart[i].dataValues.quantity)
+        //update mug stock
+        let updatedStock =
+          parseFloat(userCart[i].mug.dataValues.stock) -
+          parseFloat(newOrderItem.quantity)
+        await userCart[i].mug.update({
+          stock: updatedStock
+        })
+
+        //delete cartItem
+        await userCart[i].destroy()
+      }
     }
 
     res.json(newOrder)
