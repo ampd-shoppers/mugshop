@@ -30,7 +30,7 @@ export class AllOrdersCard extends Component {
           {order && order.id}
         </h4>
         <h4>Date Ordered: {order && order.createdAt}</h4>
-        <h4>Total Cost: {order && order.dollarTotal}</h4>
+        <h4>Total Cost: ${order && order.dollarTotal}</h4>
         <h4>Order Status: {order && order.progress}</h4>
         {this.props.from === 'admin' && (
           <div>

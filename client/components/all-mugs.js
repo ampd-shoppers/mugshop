@@ -19,6 +19,10 @@ export class AllMugs extends Component {
   componentDidUpdate() {}
 
   render() {
+    if (this.props.match.params.pageNum) {
+      this.props.match.params.pageNum = 1
+    }
+    console.log('props', this.props.match.params.pageNum)
     return (
       <div>
         <Filter />
