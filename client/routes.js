@@ -14,7 +14,7 @@ import AdminOrders from './components/admin-orders'
 import AdminUsers from './components/admin-users'
 import AdminMugs from './components/admin-mugs'
 import AdminMugForm from './components/admin-mug-form'
-import CheckoutForm from './components/CheckoutForm'
+import ThankYou from './components/thank-you'
 
 /**
  * COMPONENT
@@ -40,6 +40,7 @@ class Routes extends Component {
           render={routeProps => <AllMugs {...routeProps} />}
         />
         <Route path="/mugs/:mugId" component={SingleMug} />
+        <Route exact path="/user/checkout/success" component={ThankYou} />
         <Route
           exact
           path="/orders"

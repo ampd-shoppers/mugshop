@@ -70,6 +70,7 @@ form div {
   justify-content: space-between;
   padding: 0;
 }
+
 .LinkNavBarDiv {
   display: flex;
   justify-content: space-around;
@@ -164,9 +165,9 @@ h5 {
   width: 75vw;
 }
 
-/* .mugForm{
-  padding:
-} */
+.successPage {
+  background-color: white;
+}
 
 .orderListGroup {
   padding: 4rem;
@@ -177,4 +178,10 @@ h5 {
   font-family: 'Fjalla One', sans-serif;
   text-align: center;
   font-size: 4rem;
+  margin-bottom: 0;
+  background-color: #fefef2;
+}
+
+.titleH1 img {
+  height: 20vh;
 }
