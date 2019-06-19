@@ -39,7 +39,7 @@ class Routes extends Component {
           path="/mugs/page/:pageNum"
           render={routeProps => <AllMugs {...routeProps} />}
         />
-        <Route exact path="/mugs/:mugId" component={SingleMug} />
+        <Route path="/mugs/:mugId" component={SingleMug} />
         <Route
           exact
           path="/orders"
