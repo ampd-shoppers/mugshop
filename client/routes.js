@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
 import {me, getAllMugs, getAllTags, logout, getCart} from './store'
@@ -39,7 +39,7 @@ class Routes extends Component {
           path="/mugs/page/:pageNum"
           render={routeProps => <AllMugs {...routeProps} />}
         />
-        <Route exact path="/mugs/:mugId" component={SingleMug} />
+        <Route path="/mugs/:mugId" component={SingleMug} />
         <Route
           exact
           path="/orders"
@@ -61,10 +61,7 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route
-              path="/home"
-              render={routeProps => <AllMugs {...routeProps} />}
-            />
+            <Route path="/home" render={() => <Redirect to="/mugs/page/0" />} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
