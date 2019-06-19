@@ -13,11 +13,8 @@ export class AdminUsersCard extends Component {
     try {
       const permissionLevel = event.target.value
       const userId = this.props.user.id
-      console.log(userId, permissionLevel)
-      //ADD TO REDUCER
-      //ADD CONNECT AND MAP DISPATCH
+
       this.props.fetchUpdatedUser(userId, permissionLevel)
-      // console.log(res.data)
     } catch (error) {
       console.log(error)
     }

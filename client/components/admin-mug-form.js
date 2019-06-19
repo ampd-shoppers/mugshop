@@ -13,7 +13,8 @@ export class AdminMugForm extends Component {
       currentPrice: '',
       stock: '',
       imgSRC: '',
-      status: ''
+      status: '',
+      update: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,23 +23,47 @@ export class AdminMugForm extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log(this.state)
   }
   async handleSubmit(event) {
     event.preventDefault()
-    let response = await Axios.post('/api/mugs', this.state)
-    this.setState({
-      name: '',
-      currentPrice: '',
-      stock: '',
-      imgSRC: '',
-      status: response.statusText
-    })
+    let response
+    if (!this.state.update) {
+      response = await Axios.post('/api/mugs', this.state)
+      this.setState({
+        name: '',
+        currentPrice: '',
+        stock: '',
+        imgSRC: '',
+        status: response.statusText
+      })
+    } else {
+      response = await Axios.put(
+        `/api/mugs/${this.props.location.state.mug.id}`,
+        this.state
+      )
+      this.setState({
+        status: response.statusText
+      })
+    }
     setTimeout(() => {
       this.setState({
         status: ''
       })
     }, 1500)
+  }
+
+  componentDidMount() {
+    if (this.props.location.state) {
+      const {mug} = this.props.location.state
+
+      this.setState({
+        name: mug.name,
+        currentPrice: mug.currentPrice,
+        stock: mug.stock,
+        imgSRC: mug.imgSRC,
+        update: true
+      })
+    }
   }
   render() {
     return (
@@ -81,9 +106,19 @@ export class AdminMugForm extends Component {
             placeholder="Link to Image of Mug"
           />
           <Button variant="primary" type="submit">
-            Add Mug
+            {!this.state.update && 'Add Mug'}
+            {this.state.update && 'Update Mug'}
           </Button>
-          {this.state.status === 'OK' ? <h3>Mug Added Successfully</h3> : ''}
+          {!this.state.update && this.state.status === 'OK' ? (
+            <h3>Mug Added Successfully</h3>
+          ) : (
+            ''
+          )}
+          {this.state.update && this.state.status === 'OK' ? (
+            <h3>Mug Updated Successfully</h3>
+          ) : (
+            ''
+          )}
         </Form>
         <div />
       </div>

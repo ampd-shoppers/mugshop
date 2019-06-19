@@ -1,33 +1,35 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {removeCartItem, updateMug, setFilter} from '../store'
+import {setFilter} from '../store'
 import classNames from '../../public/style.css'
-import {Dropdown, Button} from 'react-bootstrap'
+import {Form} from 'react-bootstrap'
 
 export class Filter extends Component {
+  constructor() {
+    super()
+    this.handleSelect = this.handleSelect.bind(this)
+  }
+
+  handleSelect(event) {
+    this.props.visibilityFilter(event.target.value)
+  }
   render() {
     return (
       <div style={{display: 'flex'}} className={classNames.filterDropdown}>
-        <Dropdown>
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-            Filter By Category
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            {this.props.tags
-              .filter(tag => tag.category === 'type')
-              .map(item => (
-                <Dropdown.Item key={item.id}>{item.tag}</Dropdown.Item>
-              ))}
-          </Dropdown.Menu>
-        </Dropdown>
-        {/* <Button onClick={() => this.props.visibilityFilter('SHOW_TYPE')}> */}
-        <Button onClick={() => this.props.visibilityFilter('Handmade')}>
-          Type Handmade
-        </Button>
-        <Button onClick={() => this.props.visibilityFilter('Show All')}>
-          Show All
-        </Button>
+        <Form.Control
+          as="select"
+          onChange={event => this.handleSelect(event)}
+          name="tag"
+          defaultValue="Show All"
+          style={{width: '10vw'}}
+        >
+          <option value="Show All">Show All</option>
+          {this.props.tags.filter(tag => tag.category === 'type').map(item => (
+            <option key={item.id} value={item.tag}>
+              {item.tag}
+            </option>
+          ))}
+        </Form.Control>
       </div>
     )
   }

@@ -12,7 +12,6 @@ import Filter from './filter'
 
 export class AllMugs extends Component {
   componentDidMount() {
-    // console.log('mug props: ', this.props)
     this.props.fetchAllMugs(this.props.match.params.pageNum)
     this.props.fetchAllTags()
   }
@@ -20,8 +19,6 @@ export class AllMugs extends Component {
   componentDidUpdate() {}
 
   render() {
-    // console.log(this.props.mugs[0] && this.props.mugs[4].tags)
-    console.log(this.props)
     return (
       <div>
         <Filter />
@@ -52,21 +49,17 @@ export class AllMugs extends Component {
 
 const mapState = state => {
   const showType = state.tags.filter(tag => tag.tag === state.filter)
-  // console.log('state.filter: ',state.tags)
-  console.log('Show Type:', showType[0] && showType[0].mugs)
-  // console.log('tagName:', (state.mugs[4] && state.mugs[4].tags[1].tag===state.filter))
+
   const filterFunc = function() {
-    if (state.filter === 'Handmade') {
-      console.log('in if statement')
-      return showType[0].mugs
+    if (state.filter === 'Show All') {
+      return state.mugs
     }
-    return state.mugs
+    return showType[0].mugs
   }
 
   return {
     mugs: filterFunc()
   }
-  // return {mugs: state.mugs, filter: state.filter}
 }
 
 const mapDispatch = dispatch => {

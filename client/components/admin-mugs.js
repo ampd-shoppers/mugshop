@@ -8,7 +8,6 @@ export class AdminMugs extends Component {
   render() {
     return (
       <div className={classNames.adminUserDiv} style={{width: '95vw'}}>
-        {/* <div> */}
         <Table striped bordered hover className={classNames.adminUserTable}>
           <thead>
             <tr>
@@ -20,11 +19,9 @@ export class AdminMugs extends Component {
             </tr>
           </thead>
           <tbody>
-            {/* <Form size="sm"> */}
             {this.props.mugs.map(mug => (
               <AdminMugsCard key={mug.id} mug={mug} from="admin" />
             ))}
-            {/* </Form> */}
           </tbody>
         </Table>
       </div>

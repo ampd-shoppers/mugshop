@@ -19,7 +19,7 @@ router.use((req, res, next) => {
 //logged in user views their cartItems (forming their cart)
 router.get('/user', async (req, res, next) => {
   try {
-    console.log(req.sessionID)
+    // console.log(req.sessionID)
     if (req.user) {
       var userCart = await CartItem.findAll({
         where: {userId: req.user.id},
@@ -109,8 +109,8 @@ router.get('/user/checkout', async (req, res, next) => {
       })
 
       // console.log('mug: ', mug[i])
-      console.log('is this rendering? ', userCart[i].mug.dataValues.stock)
-      console.log('quantity: ', userCart[i].dataValues.quantity)
+      // console.log('is this rendering? ', userCart[i].mug.dataValues.stock)
+      // console.log('quantity: ', userCart[i].dataValues.quantity)
       //update mug stock
       let updatedStock =
         parseFloat(userCart[i].mug.dataValues.stock) -

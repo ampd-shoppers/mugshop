@@ -23,8 +23,6 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
     this.props.fetchCart()
-    // this.props.fetchAllMugs()
-    // this.props.fetchAllTags()
   }
 
   render() {
@@ -56,6 +54,7 @@ class Routes extends Component {
             <Route exact path="/admin/users/all" component={AdminUsers} />
             <Route exact path="/admin/mugs/all" component={AdminMugs} />
             <Route exact path="/admin/mugs/new" component={AdminMugForm} />
+            <Route exact path="/admin/mugs/update" component={AdminMugForm} />
           </Switch>
         )}
 
@@ -93,8 +92,6 @@ const mapDispatch = dispatch => {
       dispatch(me())
     },
     fetchCart: () => dispatch(getCart())
-    // fetchAllMugs: () => dispatch(getAllMugs()),
-    // fetchAllTags: () => dispatch(getAllTags())
   }
 }
 
