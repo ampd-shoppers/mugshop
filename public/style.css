@@ -70,6 +70,7 @@ form div {
   justify-content: space-between;
   padding: 0;
 }
+
 .LinkNavBarDiv {
   display: flex;
   justify-content: space-around;
@@ -177,4 +178,10 @@ h5 {
   font-family: 'Fjalla One', sans-serif;
   text-align: center;
   font-size: 4rem;
+  margin-bottom: 0;
+  background-color: #fefef2;
+}
+
+.titleH1 img {
+  height: 20vh;
 }
