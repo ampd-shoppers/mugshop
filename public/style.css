@@ -167,3 +167,14 @@ h5 {
 .successPage {
   background-color: white;
 }
+
+.orderListGroup {
+  padding: 4rem;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.titleH1 {
+  font-family: 'Fjalla One', sans-serif;
+  text-align: center;
+  font-size: 4rem;
+}

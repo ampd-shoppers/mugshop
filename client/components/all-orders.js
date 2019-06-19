@@ -5,6 +5,7 @@ import {Button, Image, InputGroup, FormControl, Form} from 'react-bootstrap'
 import ListGroup from 'react-bootstrap/ListGroup'
 import {Link} from 'react-router-dom'
 import AllOrdersCard from './all-orders-card'
+import classNames from '../../public/style.css'
 
 export class AllOrders extends Component {
   async componentDidMount() {
@@ -22,7 +23,7 @@ export class AllOrders extends Component {
       <div>
         {this.props.from === 'user' && <h1>Order History</h1>}
         {this.props.from === 'admin' && <h1>Admin View All Order History</h1>}
-        <ListGroup variant="flush">
+        <ListGroup variant="flush" className={classNames.orderListGroup}>
           {renderOrders &&
             renderOrders.map(order => (
               <AllOrdersCard

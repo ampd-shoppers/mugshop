@@ -53,9 +53,6 @@ export class AllMugsCard extends Component {
   }
 
   render() {
-    // const color = this.props.mug.tags[2] && this.props.mug.tags[2].tag
-    // const cat1 = this.props.mug.tags[0] && this.props.mug.tags[0].tag
-    // const cat2 = this.props.mug.tags[1] && this.props.mug.tags[1].tag
     return (
       <div>
         <Card bg="light" style={{width: '18rem', margin: '.25rem'}}>
@@ -70,24 +67,6 @@ export class AllMugsCard extends Component {
             </LinkContainer>
             <Card.Subtitle>${this.props.mug.currentPrice}</Card.Subtitle>
             <hr />
-            {/* <Card.Text>Color: {color}</Card.Text>
-            <Card.Text>
-              Categories:<br />
-              {cat1} & {cat2}
-            </Card.Text> */}
-            {/* <InputGroup className="mb-1">
-              <FormControl
-                defaultValue="1"
-                aria-label="qty"
-                aria-describedby="basic-addon2"
-                style={{width: '23%', flex: 'none'}}
-              />
-              <InputGroup.Append>
-                <Button variant="outline-secondary">Qty</Button>
-              </InputGroup.Append>
-            </InputGroup> */}
-
-            {/* <OverlayTrigger show={this.state.show}  hide={!this.state.show} placement="right" overlay={popover}> */}
             <Button
               variant="primary"
               onClick={() => this.handleAdd(this.props.mug.id)}
@@ -97,16 +76,6 @@ export class AllMugsCard extends Component {
               {this.state.adding && 'Adding...'}
             </Button>
             {this.state.show && this.state.comment}
-            {/* {this.state.show && (
-              <Overlay target={this.state.target} placement="right">
-                {props => (
-                  <Tooltip id="overlay-example" {...props}>
-                    {this.state.comment}
-                  </Tooltip>
-                )}
-              </Overlay>
-            )} */}
-            {/* </OverlayTrigger> */}
           </Card.Body>
         </Card>
       </div>
