@@ -8,6 +8,11 @@ const Order = db.define('order', {
   },
   dollarTotal: {
     type: Sequelize.DECIMAL(10, 2)
+  },
+  sessionId: {
+    foreignKey: true,
+    allowNull: true,
+    type: Sequelize.STRING
   }
 })
 
